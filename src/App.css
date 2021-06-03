@@ -23,6 +23,7 @@
 .recipe-main-container {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .recipe-poster {
@@ -31,7 +32,17 @@
   border-radius: 5px;
 }
 
+.recipe-icon{
+  width: 30px;
+}
+
 .recipe-details-container {
   margin-left: 8px;
+}
+
+.recipe-detail-container {
+  display: flex;
+  align-content: center;
+  height: 27px;
 }
 
