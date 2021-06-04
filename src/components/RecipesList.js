@@ -9,7 +9,22 @@ query getRecipes {
     instagramUrl
     instagramAuthor
     preparationTime
+    createdAt
+    updatedAt
+    onTop
+    poster
     ingredients {
+      _id
+      title
+      icon
+    }
+    accessories {
+      _id
+      title
+      icon
+    }
+    categories {
+      _id
       title
       icon
     }
@@ -24,8 +39,8 @@ function RecipesList() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
 
-    return data.getRecipes.map(({ title, instagramAuthor, preparationTime }) =>(
-        <Recipe title={title} instagramAuthor={instagramAuthor} preparationTime={preparationTime} />
+    return data.getRecipes.map(({ title, instagramAuthor, preparationTime, poster, accessories, categories }) =>(
+        <Recipe title={title} instagramAuthor={instagramAuthor} preparationTime={preparationTime} accessories={accessories} categories={categories} poster={poster}/>
     ));
 }
 
