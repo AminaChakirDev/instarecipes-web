@@ -6,19 +6,17 @@ import CategoriesList from "./CategoriesList";
 import CreateCategory from "./CreateCategory";
 import AccessoriesList from "./AccessoriesList";
 import CreateAccessory from "./CreateAccessory";
+import UploadPoster from "./UploadPoster";
 
 function Home() {
     return (
         <div className="Home">
-            <p className='home-title'>Recettes à la Une</p>
-            <RecipesList/>
-            <CreateRecipe/>
-            <IngredientsList/>
+            <p className='home-title'>Créer une recette</p>
+
             <CreateIngredient/>
-            <CategoriesList/>
             <CreateCategory/>
-            <AccessoriesList/>
             <CreateAccessory/>
+            <UploadPoster />
         </div>
     );
 }

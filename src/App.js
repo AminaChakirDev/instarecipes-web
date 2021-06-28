@@ -1,12 +1,59 @@
 import './App.css';
 import Home from "./components/Home";
-import UploadPoster from "./components/UploadPoster";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+import IngredientsList from "./components/IngredientsList";
+import AccessoriesList from "./components/AccessoriesList";
+import CategoriesList from "./components/CategoriesList";
+import RecipesList from "./components/RecipesList";
 
 function App() {
   return (
     <div className="App">
-        <Home />
-        <UploadPoster />
+        <Router>
+            <div>
+                <ul>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li>
+                        <Link to="/ingredients">Ingredients</Link>
+                    </li>
+                    <li>
+                        <Link to="/accessories">Accessories</Link>
+                    </li>
+                    <li>
+                        <Link to="/categories">Categories</Link>
+                    </li>
+                    <li>
+                        <Link to="/recipes">Recipes</Link>
+                    </li>
+                </ul>
+
+                <hr />
+                <Switch>
+                    <Route exact path="/">
+                        <Home />
+                    </Route>
+                    <Route path="/ingredients">
+                        <IngredientsList />
+                    </Route>
+                    <Route path="/accessories">
+                        <AccessoriesList />
+                    </Route>
+                    <Route path="/categories">
+                        <CategoriesList />
+                    </Route>
+                    <Route path="/recipes">
+                        <RecipesList />
+                    </Route>
+                </Switch>
+            </div>
+        </Router>
     </div>
   );
 }

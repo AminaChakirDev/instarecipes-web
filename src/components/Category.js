@@ -4,7 +4,6 @@ function Category({title, icon}) {
         <div className="recipe-main-container" key={title}>
             <div className="recipe-details-container">
                 <div className="recipe-detail-container recipe-title">{title}</div>
-                <div className="recipe-detail-container recipe-title">{icon}</div>
             </div>
         </div>
     )
