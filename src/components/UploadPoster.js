@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function Poster() {
+function UploadPoster() {
 
     const [image, setImage ] = useState("");
     const [ url, setUrl ] = useState("");
@@ -35,4 +35,4 @@ function Poster() {
     );
 }
 
-export default Poster;
+export default UploadPoster;

@@ -1,12 +1,12 @@
 import './App.css';
 import Home from "./components/Home";
-import Poster from "./components/Poster";
+import UploadPoster from "./components/UploadPoster";
 
 function App() {
   return (
     <div className="App">
         <Home />
-        <Poster />
+        <UploadPoster />
     </div>
   );
 }
