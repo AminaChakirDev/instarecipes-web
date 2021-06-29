@@ -4,6 +4,7 @@ import CreateAccessory from "./CreateAccessory";
 import UploadPoster from "./UploadPoster";
 import CreateRecipe from "./CreateRecipe";
 import DeleteRecipe from "./DeleteRecipe";
+import DeleteIngredient from "./DeleteIngredient";
 
 function Admin() {
     return (
@@ -11,6 +12,7 @@ function Admin() {
             <p className='home-title'>Page Admin</p>
 
             <CreateIngredient/>
+            <DeleteIngredient/>
             <CreateCategory/>
             <CreateAccessory/>
             <CreateRecipe/>
