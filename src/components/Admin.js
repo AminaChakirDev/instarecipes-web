@@ -5,6 +5,7 @@ import UploadPoster from "./UploadPoster";
 import CreateRecipe from "./CreateRecipe";
 import DeleteRecipe from "./DeleteRecipe";
 import DeleteIngredient from "./DeleteIngredient";
+import DeleteAccessory from "./DeleteAccessory";
 
 function Admin() {
     return (
@@ -15,6 +16,7 @@ function Admin() {
             <DeleteIngredient/>
             <CreateCategory/>
             <CreateAccessory/>
+            <DeleteAccessory/>
             <CreateRecipe/>
             <DeleteRecipe/>
             <UploadPoster />
