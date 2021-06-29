@@ -1,5 +1,6 @@
 import { useQuery, gql } from '@apollo/client';
 import Ingredient from "./Ingredient";
+import {Link} from "react-router-dom";
 
 const INGREDIENTS = gql`
 query getIngredients {
@@ -18,9 +19,16 @@ function IngredientsList() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
 
-    return data.getIngredients.map(({ title, icon }) =>(
-        <Ingredient title={title} icon={icon}/>
-    ));
+    return (
+        <div>
+            <Link to="/admin">Retour vers la page admin</Link>
+            {
+                data.getIngredients.map(({ title, icon }) =>(
+                    <Ingredient title={title} icon={icon}/>
+                ))
+            }
+        </div>
+    )
 }
 
 export default IngredientsList;

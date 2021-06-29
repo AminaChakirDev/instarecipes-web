@@ -15,14 +15,13 @@ const CREATE_RECIPE = gql`
 function CreateRecipe() {
 
     const [formState, setFormState] = useState({
-        title: 'toto',
-        instagramUrl: 'toto',
-        instagramAuthor: 'toot',
+        title: '',
+        instagramUrl: '',
+        instagramAuthor: '',
         preparationTime: 10,
-        createdAt: '28/06/2021',
-        updatedAt: '20/07/2021',
+        updatedAt: '',
         onTop: false,
-        poster: 'TYTY',
+        poster: '',
         ingredients : [
             {
                 _id: '60b88dde9f29af5a1bad7621',
@@ -45,7 +44,20 @@ function CreateRecipe() {
     const [createRecipe] = useMutation(CREATE_RECIPE, {
         variables: {
             data:
-            formState
+                {
+                    ...formState,
+                    createdAt: new Intl.DateTimeFormat(
+                        'fr-FR',
+                        {
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit'
+                        })
+                        .format(Date.now()),
+                }
         }
     });
 
@@ -110,32 +122,6 @@ function CreateRecipe() {
                             }
                             type="text"
                             placeholder="Preparation time"
-                        />
-                    </div>
-                    <div>
-                        <input
-                            value={formState.createdAt}
-                            onChange={(e) =>
-                                setFormState({
-                                    ...formState,
-                                    createdAt: e.target.value
-                                })
-                            }
-                            type="text"
-                            placeholder="Created At"
-                        />
-                    </div>
-                    <div>
-                        <input
-                            value={formState.updatedAt}
-                            onChange={(e) =>
-                                setFormState({
-                                    ...formState,
-                                    updatedAt: e.target.value
-                                })
-                            }
-                            type="text"
-                            placeholder="Updated at"
                         />
                     </div>
                     <div>

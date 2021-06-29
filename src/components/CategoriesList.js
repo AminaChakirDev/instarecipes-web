@@ -1,5 +1,6 @@
 import { useQuery, gql } from '@apollo/client';
 import Category from "./Category";
+import {Link} from "react-router-dom";
 
 const CATEGORIES = gql`
 query getCategories {
@@ -18,9 +19,16 @@ function CategoriesList() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
 
-    return data.getCategories.map(({ title, icon }) =>(
-        <Category title={title} icon={icon}/>
-    ));
+    return (
+        <div>
+            <Link to="/admin">Retour vers la page admin</Link>
+            {
+                data.getCategories.map(({ title, icon }) =>(
+                    <Category title={title} icon={icon}/>
+                ))
+            }
+        </div>
+    )
 }
 
 export default CategoriesList;

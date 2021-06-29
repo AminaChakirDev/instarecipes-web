@@ -17,6 +17,10 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import Search from "./components/Search";
 import Favorites from "./components/Favorites";
 import logo from './logo.png';
+import AdminRecipes from "./components/AdminRecipes";
+import AdminIngredients from "./components/AdminIngredients";
+import AdminCategories from "./components/AdminCategories";
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 
 function App() {
   return (
@@ -38,19 +42,7 @@ function App() {
                             <Link to="/favorites"><FavoriteIcon fontSize="large"/></Link>
                         </li>
                         <li>
-                            <Link to="/ingredients">Ingredients</Link>
-                        </li>
-                        <li>
-                            <Link to="/accessories">Accessories</Link>
-                        </li>
-                        <li>
-                            <Link to="/categories">Categories</Link>
-                        </li>
-                        <li>
-                            <Link to="/recipes">Recipes</Link>
-                        </li>
-                        <li>
-                            <Link to="/admin">Admin</Link>
+                            <Link to="/admin"><SupervisorAccountIcon fontSize="large"/></Link>
                         </li>
                     </ul>
                 </div>
@@ -67,14 +59,26 @@ function App() {
                     <Route path="/ingredients">
                         <IngredientsList />
                     </Route>
+                    <Route path="/admin/ingredients">
+                        <AdminIngredients />
+                    </Route>
                     <Route path="/accessories">
+                        <AccessoriesList />
+                    </Route>
+                    <Route path="/admin/accessories">
                         <AccessoriesList />
                     </Route>
                     <Route path="/categories">
                         <CategoriesList />
                     </Route>
+                    <Route path="/admin/categories">
+                        <AdminCategories />
+                    </Route>
                     <Route path="/recipes">
                         <RecipesList />
+                    </Route>
+                    <Route path="/admin/recipes">
+                        <AdminRecipes />
                     </Route>
                     <Route path="/admin">
                         <Admin />
