@@ -10,6 +10,7 @@ import IngredientsList from "./components/IngredientsList";
 import AccessoriesList from "./components/AccessoriesList";
 import CategoriesList from "./components/CategoriesList";
 import RecipesList from "./components/RecipesList";
+import Admin from "./components/Admin";
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
                     <li>
                         <Link to="/recipes">Recipes</Link>
                     </li>
+                    <li>
+                        <Link to="/admin">Admin</Link>
+                    </li>
                 </ul>
 
                 <hr />
@@ -50,6 +54,9 @@ function App() {
                     </Route>
                     <Route path="/recipes">
                         <RecipesList />
+                    </Route>
+                    <Route path="/admin">
+                        <Admin />
                     </Route>
                 </Switch>
             </div>

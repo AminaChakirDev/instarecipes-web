@@ -51,7 +51,7 @@ function CreateRecipe() {
 
     return (
         <div className="Admin">
-            <p className='admin-title'>Création de recettes</p>
+            <h3>Créer une recette</h3>
 
             <div>
                 <form
