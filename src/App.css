@@ -1,22 +1,38 @@
+/************************** A P P L I C A B L E   A   T O U T   L E   D O C U M E N T  *****************************/
+
+a {
+  text-decoration: none;
+  color: #2C001B;
+}
+
+li {
+  list-style-type: none;
+}
+
 .App {
   color: #2C001B;
   margin: 0 15% 0 15%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/************************** H E A D E R  *****************************/
+
+.header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
 }
 
-.home-title {
-  font-size: large;
-  font-weight: bold;
+/************************** L O G O  *****************************/
+
+.logo {
+  width: 50px;
+  height: 50px;
+}
+
+/************************** M E N U  *****************************/
+
+.menu-container {
+  display: flex;
+  justify-content: space-around;
 }
 
 /************************** R E C I P E . J S *****************************/
@@ -43,15 +59,17 @@
   border-radius: 5px;
 }
 
-.recipe-detail {
-  margin-left: 10px;
+.recipe-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 16px 0;
 }
 
 .recipe-details-container {
   display: flex;
   flex-direction: column;
   margin-left: 8px;
-  padding: 16px 0;
 }
 
 .recipe-detail-container {
@@ -59,6 +77,10 @@
   min-height: 27px;
   align-items: center;
   font-size: 18px;
+}
+
+.recipe-detail {
+  margin-left: 10px;
 }
 
 .recipe-title {
