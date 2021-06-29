@@ -1,49 +1,153 @@
-.App {
+@font-face {
+  font-family: 'SignPainter';
+  src: local('SignPainter'), url(./fonts/SignPainter.ttf) format('ttf');
+}
+
+/************************** A P P L I C A B L E   A   T O U T   L E   D O C U M E N T  *****************************/
+
+a {
+  text-decoration: none;
   color: #2C001B;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+li {
+  list-style-type: none;
 }
 
-.home-title {
-  font-size: large;
+.App {
+  color: #2C001B;
+  margin: 0 15% 0 15%;
+}
+
+/************************** H E A D E R  *****************************/
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+/************************** L O G O  *****************************/
+
+.logo {
+  width: 50px;
+  height: 50px;
+}
+
+/************************** M E N U  *****************************/
+
+.menu-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+/************************** A D M I N  *****************************/
+
+.admin-buttons-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.admin-button {
+  height: 100px;
+  width: 150px;
+  border: solid 1px #E5E5E5;
+  line-height: 100px;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 20px;
   font-weight: bold;
 }
 
-/************************** R E C I P E   C O M P O N E N T *****************************/
+.admin-button:hover {
+  border-color: #FF3453;
+}
 
-.recipe-main-container {
+/************************** P A G E S   A D M I N  *****************************/
+
+.admin-page h2 {
+  text-align: center;
+  font-family: SignPainter;
+  font-size: 50px;
+}
+
+.back-button-container {
   display: flex;
-  flex-direction: row;
   align-items: center;
 }
 
-.recipe-poster {
-  height: 20vmin;
-  width: 20vmin;
+.admin-page form {
+  text-align: center;
+}
+
+.admin-page input {
+  width: 200px;
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+input:focus {
+  outline: none !important;
+  border: 1px solid #FF3453;
+  box-shadow: 0 0 10px #FF3453;
   border-radius: 5px;
 }
 
-.recipe-icon{
-  width: 30px;
+.admin-page button {
+  width: 208px;
+  height: 50px;
+  margin-bottom: 10px;
+  background-color: #FF3453;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 22px;
+  margin-top: 10px;
+}
+/************************** R E C I P E . J S *****************************/
+
+.recipe-main-container {
+  margin: 0 auto 50px auto;
+  border: 1px solid #E5E5E5;
+  width: 60vmin;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+}
+
+.recipe-poster-container {
+  position: relative;
+  width: 60vmin;
+  height: 35vmin;
+  overflow: hidden;
+}
+
+.recipe-poster {
+  height: 60vmin;
+  width: 60vmin;
+  border-radius: 5px;
+}
+
+.recipe-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 8px;
 }
 
 .recipe-details-container {
-  margin-left: 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 .recipe-detail-container {
   display: flex;
-  align-content: center;
-  height: 27px;
+  min-height: 27px;
+  align-items: center;
+  font-size: 18px;
+}
+
+.recipe-detail {
+  margin-left: 10px;
 }
 
 .recipe-title {
