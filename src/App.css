@@ -1,5 +1,6 @@
 .App {
   color: #2C001B;
+  margin: 0 15% 0 15%;
 }
 
 .App-header {
@@ -18,32 +19,46 @@
   font-weight: bold;
 }
 
-/************************** R E C I P E   C O M P O N E N T *****************************/
+/************************** R E C I P E . J S *****************************/
 
 .recipe-main-container {
+  margin: 0 auto 50px auto;
+  border: 1px solid #E5E5E5;
+  width: 60vmin;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.recipe-poster {
-  height: 20vmin;
-  width: 20vmin;
+  flex-direction: column;
   border-radius: 5px;
 }
 
-.recipe-icon{
-  width: 30px;
+.recipe-poster-container {
+  position: relative;
+  width: 60vmin;
+  height: 35vmin;
+  overflow: hidden;
+}
+
+.recipe-poster {
+  height: 60vmin;
+  width: 60vmin;
+  border-radius: 5px;
+}
+
+.recipe-detail {
+  margin-left: 10px;
 }
 
 .recipe-details-container {
+  display: flex;
+  flex-direction: column;
   margin-left: 8px;
+  padding: 16px 0;
 }
 
 .recipe-detail-container {
   display: flex;
-  align-content: center;
-  height: 27px;
+  min-height: 27px;
+  align-items: center;
+  font-size: 18px;
 }
 
 .recipe-title {

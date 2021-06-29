@@ -3,7 +3,7 @@ import RecipesList from "./RecipesList";
 function Home() {
     return (
         <div className="Home">
-            <p className='home-title'>Recette à la une</p>
+            <h2>Recettes à la une</h2>
             <RecipesList />
         </div>
     );
