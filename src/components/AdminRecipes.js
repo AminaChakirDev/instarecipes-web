@@ -18,8 +18,6 @@ function AdminRecipes() {
 
             <CreateRecipe/>
             <DeleteRecipe/>
-
-            <UploadPoster />
         </div>
     );
 }

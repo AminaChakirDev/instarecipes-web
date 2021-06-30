@@ -11,7 +11,7 @@ const DELETE_RECIPE = gql`
 
 function DeleteRecipe() {
 
-    const [title, setTitle] = useState('toto');
+    const [title, setTitle] = useState('');
 
     const [deleteRecipe] = useMutation(DELETE_RECIPE, {
         variables: {
