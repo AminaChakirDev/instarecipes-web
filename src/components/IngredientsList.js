@@ -23,7 +23,7 @@ function IngredientsList() {
         <div>
             <Link to="/admin">Retour vers la page admin</Link>
             {
-                data.getIngredients.map(({ title, icon }) =>(
+                data && data.getIngredients.map(({ title, icon }) =>(
                     <Ingredient title={title} icon={icon}/>
                 ))
             }
