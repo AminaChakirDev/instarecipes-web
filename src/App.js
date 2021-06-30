@@ -45,9 +45,6 @@ function App() {
                         <li>
                             <Link to="/admin"><SupervisorAccountIcon fontSize="large"/></Link>
                         </li>
-                        <li>
-                            <Link to="/recipes/sssssss">September 2019</Link>
-                        </li>
                     </ul>
                 </div>
                 <Switch>
