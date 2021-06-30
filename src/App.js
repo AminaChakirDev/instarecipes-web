@@ -21,6 +21,7 @@ import AdminRecipes from "./components/AdminRecipes";
 import AdminIngredients from "./components/AdminIngredients";
 import AdminCategories from "./components/AdminCategories";
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import RecipeDetails from "./components/RecipeDetails";
 
 function App() {
   return (
@@ -44,6 +45,9 @@ function App() {
                         <li>
                             <Link to="/admin"><SupervisorAccountIcon fontSize="large"/></Link>
                         </li>
+                        <li>
+                            <Link to="/recipes/sssssss">September 2019</Link>
+                        </li>
                     </ul>
                 </div>
                 <Switch>
@@ -59,6 +63,7 @@ function App() {
                     <Route path="/ingredients">
                         <IngredientsList />
                     </Route>
+                    <Route path="/recipes/:name" component={RecipeDetails}/>
                     <Route path="/admin/ingredients">
                         <AdminIngredients />
                     </Route>

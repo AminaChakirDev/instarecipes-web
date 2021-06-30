@@ -1,5 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
-import {useState} from "react";
+import React, {useState} from "react";
+import noImage from './../no-image-icon.png';
+import Loader from "react-js-loader";
 
 const CREATE_RECIPE = gql`
   mutation CreateRecipe(
@@ -21,7 +23,7 @@ function CreateRecipe() {
         preparationTime: 10,
         updatedAt: '',
         onTop: false,
-        poster: '',
+        poster: noImage,
         ingredients : [
             {
                 _id: '60b88dde9f29af5a1bad7621',
@@ -60,6 +62,29 @@ function CreateRecipe() {
                 }
         }
     });
+
+    const [loading, setLoading ] = useState(false);
+
+    const uploadImage = (e) => {
+        setLoading(true);
+        const data = new FormData()
+        data.append("file", e.target.files[0])
+        data.append("upload_preset", "aaitmc")
+        data.append("cloud_name","dz632zpoz")
+        fetch("https://api.cloudinary.com/v1_1/dz632zpoz/image/upload",{
+            method:"post",
+            body: data
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                setFormState({
+                    ...formState,
+                    poster: data.url
+                })
+                setLoading(false);
+            })
+            .catch(err => console.log(err))
+    }
 
     return (
         <div className="Admin">
@@ -137,20 +162,24 @@ function CreateRecipe() {
                             placeholder="On Top"
                         />
                     </div>
-                    <div>
+                    <div className="input-file-container">
+                        <label htmlFor="file" className="label-file">Choisir une image</label>
                         <input
-                            value={formState.poster}
-                            onChange={(e) =>
-                                setFormState({
-                                    ...formState,
-                                    poster: e.target.value
-                                })
-                            }
-                            type="text"
-                            placeholder="Poster"
+                            id="file"
+                            className="input-file"
+                            type="file"
+                            onChange= {(e)=> {
+                                uploadImage(e)
+                            }}
                         />
+                        {
+                            loading ?
+                                <Loader type="rectangular-ping" bgColor={"#FF3453"} title={"rectangular-ping"} size={100} />
+                            :
+                                <img className="upload-poster" src={formState.poster}/>
+                        }
                     </div>
-                    <button type="submit">AJOUTER LA RECETTE</button>
+                    <button className="button" type="submit">AJOUTER LA RECETTE</button>
                 </form>
             </div>
 

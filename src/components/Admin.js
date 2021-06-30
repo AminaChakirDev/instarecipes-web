@@ -4,7 +4,7 @@ function Admin() {
     return (
         <div className="Admin">
             <h2>Page Admin</h2>
-            <div className="admin-buttons-container">
+            <div className="admin-menu-container">
                 <Link to="/admin/accessories">
                     <div className="admin-button">
                         Accessories
