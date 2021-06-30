@@ -42,9 +42,13 @@ li {
 
 /************************** A D M I N  *****************************/
 
-.admin-buttons-container {
+.admin-menu-container {
   display: flex;
   justify-content: space-between;
+  width: 60%;
+  flex-wrap: wrap;
+  max-width: 400px;
+  margin: auto;
 }
 
 .admin-button {
@@ -56,6 +60,7 @@ li {
   border-radius: 5px;
   font-size: 20px;
   font-weight: bold;
+  margin: 20px;
 }
 
 .admin-button:hover {
@@ -82,7 +87,7 @@ li {
 .admin-page input {
   width: 200px;
   height: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .input-file-container {
