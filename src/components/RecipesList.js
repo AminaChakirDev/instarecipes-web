@@ -43,24 +43,8 @@ function RecipesList() {
     return (
         <div>
             {
-                data.getRecipes.map(({ title, instagramAuthor, preparationTime, poster, accessories, categories }) =>(
-                    <Link
-                        to={{
-                            pathname: `/recipes/${title}`,
-                            state: {
-                                recipe: {
-                                    title,
-                                    instagramAuthor,
-                                    preparationTime,
-                                    poster,
-                                    accessories,
-                                    categories
-                                }
-                            }
-                        }}
-                    >
-                        <Recipe title={title} instagramAuthor={instagramAuthor} preparationTime={preparationTime} accessories={accessories} categories={categories} poster={poster}/>
-                    </Link>
+                data.getRecipes.map(({ title, instagramAuthor, instagramUrl, preparationTime, poster, accessories, categories }) =>(
+                    <Recipe title={title} instagramAuthor={instagramAuthor} instagramUrl={instagramUrl} preparationTime={preparationTime} accessories={accessories} categories={categories} poster={poster}/>
                 ))
             }
         </div>
