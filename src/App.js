@@ -60,7 +60,7 @@ function App() {
                     <Route path="/ingredients">
                         <IngredientsList />
                     </Route>
-                    <Route path="/recipes/:name" component={RecipeDetails}/>
+                    <Route path="/recipes/:slug" component={RecipeDetails}/>
                     <Route path="/admin/ingredients">
                         <AdminIngredients />
                     </Route>

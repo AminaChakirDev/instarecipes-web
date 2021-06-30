@@ -2,6 +2,7 @@ import { gql, useMutation } from '@apollo/client';
 import React, {useState} from "react";
 import noImage from './../no-image-icon.png';
 import Loader from "react-js-loader";
+import slugify from "slugify";
 
 const CREATE_RECIPE = gql`
   mutation CreateRecipe(
@@ -59,6 +60,7 @@ function CreateRecipe() {
                             second: '2-digit'
                         })
                         .format(Date.now()),
+                    slug: slugify(formState.title),
                 }
         }
     });
@@ -79,7 +81,7 @@ function CreateRecipe() {
             .then(data => {
                 setFormState({
                     ...formState,
-                    poster: data.url
+                    poster: data.url,
                 })
                 setLoading(false);
             })

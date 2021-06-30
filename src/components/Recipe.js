@@ -7,7 +7,7 @@ import {Image} from 'cloudinary-react';
 import {useState} from "react";
 import {Link} from "react-router-dom";
 
-function Recipe({instagramAuthor, instagramUrl, preparationTime, title, poster, categories, accessories}) {
+function Recipe({slug, instagramAuthor, instagramUrl, preparationTime, title, poster, categories, accessories}) {
 
     const [favoriteSate, setFavoriteState] = useState(false);
 
@@ -19,7 +19,7 @@ function Recipe({instagramAuthor, instagramUrl, preparationTime, title, poster, 
         <div className="recipe-main-container" key={title}>
             <Link
                 to={{
-                    pathname: `/recipes/${title}`,
+                    pathname: `/recipes/${slug}`,
                     state: {
                         recipe: {
                             title,
