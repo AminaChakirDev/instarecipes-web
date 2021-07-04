@@ -45,9 +45,6 @@ function App() {
                         <li>
                             <Link to="/admin"><SupervisorAccountIcon fontSize="large"/></Link>
                         </li>
-                        <li>
-                            <Link to="/recipes/sssssss">September 2019</Link>
-                        </li>
                     </ul>
                 </div>
                 <Switch>
@@ -63,7 +60,7 @@ function App() {
                     <Route path="/ingredients">
                         <IngredientsList />
                     </Route>
-                    <Route path="/recipes/:name" component={RecipeDetails}/>
+                    <Route path="/recipes/:slug" component={RecipeDetails}/>
                     <Route path="/admin/ingredients">
                         <AdminIngredients />
                     </Route>

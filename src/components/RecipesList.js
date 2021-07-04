@@ -7,6 +7,7 @@ query getRecipes {
   getRecipes {
     _id
     title
+    slug
     instagramUrl
     instagramAuthor
     preparationTime
@@ -43,10 +44,8 @@ function RecipesList() {
     return (
         <div>
             {
-                data.getRecipes.map(({ title, instagramAuthor, preparationTime, poster, accessories, categories }) =>(
-                    <Link to={`/recipes/${title}`}>
-                        <Recipe title={title} instagramAuthor={instagramAuthor} preparationTime={preparationTime} accessories={accessories} categories={categories} poster={poster}/>
-                    </Link>
+                data.getRecipes.map(({ title, slug, instagramAuthor, instagramUrl, preparationTime, poster, accessories, categories }) =>(
+                    <Recipe title={title} slug={slug} instagramAuthor={instagramAuthor} instagramUrl={instagramUrl} preparationTime={preparationTime} accessories={accessories} categories={categories} poster={poster}/>
                 ))
             }
         </div>

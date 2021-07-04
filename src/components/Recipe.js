@@ -5,8 +5,9 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import {Image} from 'cloudinary-react';
 import {useState} from "react";
+import {Link} from "react-router-dom";
 
-function Recipe({instagramAuthor, preparationTime, title, poster, categories}) {
+function Recipe({slug, instagramAuthor, instagramUrl, preparationTime, title, poster, categories, accessories}) {
 
     const [favoriteSate, setFavoriteState] = useState(false);
 
@@ -16,9 +17,26 @@ function Recipe({instagramAuthor, preparationTime, title, poster, categories}) {
 
     return (
         <div className="recipe-main-container" key={title}>
-            <div className="recipe-poster-container">
-                <Image className="recipe-poster" cloudName="dz632zpoz" publicId={poster} width="100" crop="scale" />
-            </div>
+            <Link
+                to={{
+                    pathname: `/recipes/${slug}`,
+                    state: {
+                        recipe: {
+                            title,
+                            instagramAuthor,
+                            instagramUrl,
+                            preparationTime,
+                            poster,
+                            accessories,
+                            categories
+                        }
+                    }
+                }}
+            >
+                <div className="recipe-poster-container">
+                    <Image className="recipe-poster" cloudName="dz632zpoz" publicId={poster} width="100" crop="scale" />
+                </div>
+            </Link>
             <div className="recipe-bottom">
                 <div className="recipe-details-container">
                     <div className="recipe-detail-container recipe-title">{title}</div>
