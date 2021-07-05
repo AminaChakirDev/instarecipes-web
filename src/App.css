@@ -1,38 +1,237 @@
+@font-face {
+  font-family: 'SignPainter';
+  src: local('SignPainter'), url(./fonts/SignPainter.ttf) format('ttf');
+}
+
+/************************** A P P L I C A B L E   A   T O U T   L E   D O C U M E N T  *****************************/
+
+a {
+  text-decoration: none;
+  color: #2C001B;
+}
+
+li {
+  list-style-type: none;
+}
+
 .App {
+  color: #2C001B;
+  margin: 0 15% 0 15%;
+}
+
+/************************** H E A D E R  *****************************/
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+/************************** L O G O  *****************************/
+
+.logo {
+  width: 50px;
+  height: 50px;
+}
+
+/************************** M E N U  *****************************/
+
+.menu-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+/************************** A D M I N  *****************************/
+
+.admin-menu-container {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  flex-wrap: wrap;
+  max-width: 400px;
+  margin: auto;
+}
+
+.admin-button {
+  height: 100px;
+  width: 150px;
+  border: solid 1px #E5E5E5;
+  line-height: 100px;
   text-align: center;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.admin-button:hover {
+  border-color: #FF3453;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/************************** P A G E S   A D M I N  *****************************/
+
+.admin-page h2 {
+  text-align: center;
+  font-family: SignPainter;
+  font-size: 50px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.back-button-container {
+  display: flex;
+  align-items: center;
+}
+
+.admin-page form {
+  text-align: center;
+  display: flex;
+}
+
+.form-input-container input {
+  display: block;
+}
+
+.form-input-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.admin-page input {
+  width: 300px;
+  height: 30px;
+}
+
+.input-file-container {
+  border: 1px solid grey;
+  padding: 10px 0;
+  width: 250px;
+  margin: auto;
+  border-radius: 22px;
+}
+
+input:focus {
+  outline: none !important;
+  border: 1px solid #FF3453;
+  box-shadow: 0 0 10px #FF3453;
+  border-radius: 5px;
+}
+
+.label-file {
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.label-file:hover {
+  color: #FF3453;
+}
+
+ .input-file {
+   display: none;
+ }
+
+.upload-poster {
+  height: 30vmin;
+  width: 30vmin;
+  border-radius: 5px;
+}
+
+.admin-page button {
+  width: 208px;
+  height: 50px;
+  margin-bottom: 10px;
+  background-color: #FF3453;
   color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 22px;
+  margin-top: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.button {
+  cursor: pointer;
+  position: relative;
+  background-color: #2C001B;
+  border: none;
+  transition-duration: 0.4s;
+  overflow: hidden;
+  box-shadow: 0 5px 15px #2C001B;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.button:hover {
+  background: #fff;
+  box-shadow: 0px 2px 10px 5px #2C001B;
+  color: #000;
 }
+
+.button:after {
+  content: "";
+  background: #2C001B;
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px !important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+
+.button:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
+}
+
+.button:focus { outline:0; }
+/************************** R E C I P E . J S *****************************/
+
+.recipe-main-container {
+  margin: 0 auto 50px auto;
+  border: 1px solid #E5E5E5;
+  width: 60vmin;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+}
+
+.recipe-poster-container {
+  position: relative;
+  width: 60vmin;
+  height: 35vmin;
+  overflow: hidden;
+}
+
+.recipe-poster {
+  height: 60vmin;
+  width: 60vmin;
+  border-radius: 5px;
+}
+
+.recipe-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 8px;
+}
+
+.recipe-details-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.recipe-detail-container {
+  display: flex;
+  min-height: 27px;
+  align-items: center;
+  font-size: 18px;
+}
+
+.recipe-detail {
+  margin-left: 10px;
+}
+
+.recipe-title {
+  font-weight: bold;
+}
+
