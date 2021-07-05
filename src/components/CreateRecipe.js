@@ -38,25 +38,25 @@ function CreateRecipe() {
         poster: noImage,
         ingredients : [
             {
-                _id: '60b88dde9f29af5a1bad7621',
-                title: 'fraise',
-                icon:'url fraise'
+                _id: '60e34b2b9f53b8001a0c4fee',
+                title: 'chocolat',
+                icon:'chocolat url'
             },
             {
-                _id: '60b79335b6e064531bef9794',
-                title: 'pêche',
-                icon:'url pêche'
+                _id: '60e34b479f53b8001a0c4fef',
+                title: 'beurre',
+                icon:'beurre url'
             },
         ],
         accessories: {
-            _id: '60b9d9f2709a2f84050f8a19',
-            title: 'saladier',
-            icon:'url saladier'
+            _id: '60e34bcb9f53b8001a0c4ff0',
+            title: 'cuillère',
+            icon:'url cuillère'
         },
         categories: {
-            _id: '60b9e0f318b48f86f31d7a22',
-            title: 'brunch',
-            icon:'url brunch'
+            _id: '60e319bd593a0300193a9c14',
+            title: 'pâtisserie',
+            icon:'url pâtisserie'
         },
     });
 
