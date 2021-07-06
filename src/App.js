@@ -22,6 +22,7 @@ import AdminIngredients from "./components/AdminIngredients";
 import AdminCategories from "./components/AdminCategories";
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import RecipeDetails from "./components/RecipeDetails";
+import AdminAccessories from "./components/AdminAccessories";
 
 function App() {
   return (
@@ -57,10 +58,10 @@ function App() {
                     <Route path="/favorites">
                         <Favorites />
                     </Route>
+                    <Route path="/recipes/:slug" component={RecipeDetails}/>
                     <Route path="/ingredients">
                         <IngredientsList />
                     </Route>
-                    <Route path="/recipes/:slug" component={RecipeDetails}/>
                     <Route path="/admin/ingredients">
                         <AdminIngredients />
                     </Route>
@@ -68,7 +69,7 @@ function App() {
                         <AccessoriesList />
                     </Route>
                     <Route path="/admin/accessories">
-                        <AccessoriesList />
+                        <AdminAccessories />
                     </Route>
                     <Route path="/categories">
                         <CategoriesList />
