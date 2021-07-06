@@ -43,15 +43,15 @@ function CreateRecipe() {
                 icon:'url chocolat'
             },
             {
-                _id: '60e41314d52bf500192cb95d',
+                _id: '60e412e6d52bf500192cb959',
                 title: 'beurre',
                 icon:'url beurre'
             },
         ],
         accessories: {
-            _id: '60e412f2d52bf500192cb95a',
-            title: 'bol',
-            icon:'url bol'
+            _id: '60e412e6d52bf500192cb959',
+            title: 'cuillère',
+            icon:'url cuillère'
         },
         categories: {
             _id: '60e4126cd52bf500192cb958',
