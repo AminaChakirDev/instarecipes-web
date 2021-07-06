@@ -29,32 +29,32 @@ query getIngredients {
 function CreateRecipe() {
 
     const [formState, setFormState] = useState({
-        title: '',
-        instagramUrl: '',
-        instagramAuthor: '',
+        title: 'Brownie',
+        instagramUrl: 'https://www.instagram.com/p/CL1yduWDhop/embed/captioned',
+        instagramAuthor: 'karimaelmakhloufi',
         preparationTime: 10,
         updatedAt: '',
         onTop: false,
         poster: noImage,
         ingredients : [
             {
-                _id: '60e34b2b9f53b8001a0c4fee',
+                _id: '60e41308d52bf500192cb95c',
                 title: 'chocolat',
-                icon:'chocolat url'
+                icon:'url chocolat'
             },
             {
-                _id: '60e34b479f53b8001a0c4fef',
+                _id: '60e41314d52bf500192cb95d',
                 title: 'beurre',
-                icon:'beurre url'
+                icon:'url beurre'
             },
         ],
         accessories: {
-            _id: '60e34bcb9f53b8001a0c4ff0',
-            title: 'cuillère',
-            icon:'url cuillère'
+            _id: '60e412f2d52bf500192cb95a',
+            title: 'bol',
+            icon:'url bol'
         },
         categories: {
-            _id: '60e319bd593a0300193a9c14',
+            _id: '60e4126cd52bf500192cb958',
             title: 'pâtisserie',
             icon:'url pâtisserie'
         },
