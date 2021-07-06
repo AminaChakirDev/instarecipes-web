@@ -57,28 +57,6 @@ function CreateRecipe() {
         updatedAt: '',
         onTop: false,
         poster: noImage,
-        ingredients : [
-            {
-                _id: '60e41308d52bf500192cb95c',
-                title: 'chocolat',
-                icon:'url chocolat'
-            },
-            {
-                _id: '60e412e6d52bf500192cb959',
-                title: 'beurre',
-                icon:'url beurre'
-            },
-        ],
-        accessories: {
-            _id: '60e412e6d52bf500192cb959',
-            title: 'cuillère',
-            icon:'url cuillère'
-        },
-        categories: {
-            _id: '60e4126cd52bf500192cb958',
-            title: 'pâtisserie',
-            icon:'url pâtisserie'
-        },
     });
 
     const dataIngredients = useQuery(INGREDIENTS).data;
@@ -259,6 +237,7 @@ function CreateRecipe() {
                         />
                         <Multiselect
                             placeholder="Ingredients"
+                            emptyRecordMsg="Plus de résultat"
                             options={ingredients}
                             displayValue="key"
                             onSelect={(selectedList) => {
@@ -270,6 +249,7 @@ function CreateRecipe() {
                         />
                         <Multiselect
                             placeholder="Accessoires"
+                            emptyRecordMsg="Plus de résultat"
                             options={accessories}
                             displayValue="key"
                             onSelect={(selectedList) => {
@@ -281,6 +261,7 @@ function CreateRecipe() {
                         />
                         <Multiselect
                             placeholder="Categories"
+                            emptyRecordMsg="Plus de résultat"
                             options={categories}
                             displayValue="key"
                             onSelect={(selectedList) => {

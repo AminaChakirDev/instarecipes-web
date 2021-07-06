@@ -7,9 +7,6 @@ function AdminIngredients() {
     return (
         <div>
             <h2>Page Admin Ingredients</h2>
-
-            <Link to="/admin">Retour vers la page admin</Link>
-
             <CreateIngredient/>
             <DeleteIngredient/>
 

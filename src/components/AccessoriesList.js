@@ -22,7 +22,6 @@ function AccessoriesList() {
 
     return (
         <div>
-            <Link to="/admin">Retour vers la page admin</Link>
             {
                 data.getAccessories.map(({ title, icon }) =>(
                     <Accessory title={title} icon={icon}/>

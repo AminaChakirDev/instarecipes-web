@@ -7,9 +7,6 @@ function AdminCategories() {
     return (
         <div>
             <h2>Page Admin Categories</h2>
-
-            <Link to="/admin">Retour vers la page admin</Link>
-
             <CreateCategory/>
             <DeleteCategory/>
 

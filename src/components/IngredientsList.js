@@ -21,7 +21,6 @@ function IngredientsList() {
 
     return (
         <div>
-            <Link to="/admin">Retour vers la page admin</Link>
             {
                 data && data.getIngredients.map(({ title, icon }) =>(
                     <Ingredient title={title} icon={icon}/>

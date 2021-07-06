@@ -21,7 +21,6 @@ function CategoriesList() {
 
     return (
         <div>
-            <Link to="/admin">Retour vers la page admin</Link>
             {
                 data.getCategories.map(({ title, icon }) =>(
                     <Category title={title} icon={icon}/>
