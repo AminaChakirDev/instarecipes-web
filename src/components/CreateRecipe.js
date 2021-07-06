@@ -4,6 +4,7 @@ import noImage from './../no-image-icon.png';
 import Loader from "react-js-loader";
 import slugify from "slugify";
 import { Multiselect } from 'multiselect-react-dropdown';
+import {Button} from "@material-ui/core";
 
 const CREATE_RECIPE = gql`
   mutation CreateRecipe(
@@ -19,6 +20,26 @@ const CREATE_RECIPE = gql`
 const INGREDIENTS = gql`
 query getIngredients {
   getIngredients {
+    _id
+    title
+    icon
+  }
+}
+`;
+
+const ACCESSORIES = gql`
+query getAccessories {
+  getAccessories {
+    _id
+    title
+    icon
+  }
+}
+`;
+
+const CATEGORIES = gql`
+query getCategories {
+  getCategories {
     _id
     title
     icon
@@ -60,6 +81,18 @@ function CreateRecipe() {
         },
     });
 
+    const dataIngredients = useQuery(INGREDIENTS).data;
+    const [ingredients, setIngredients] = useState([]);
+    const [ingredientsSelected, setIngredientsSelected] = useState([]);
+
+    const dataAccessories = useQuery(ACCESSORIES).data;
+    const [accessories, setAccessories] = useState([]);
+    const [accessoriesSelected, setAccessoriesSelected] = useState([]);
+
+    const dataCategories = useQuery(CATEGORIES).data;
+    const [categories, setCategories] = useState([]);
+    const [categoriesSelected, setCategoriesSelected] = useState([]);
+
     const [createRecipe] = useMutation(CREATE_RECIPE, {
         variables: {
             data:
@@ -77,32 +110,63 @@ function CreateRecipe() {
                         })
                         .format(Date.now()),
                     slug: slugify(formState.title),
+                    ingredients: ingredientsSelected.map((ingredientSelected) => {
+                        return {... ingredientSelected, key: undefined}
+                    } ),
+                    accessories: accessoriesSelected.map((accessorySelected) => {
+                        return {... accessorySelected, key: undefined}
+                    } ),
+                    categories: categoriesSelected.map((categorySelected) => {
+                        return {... categorySelected, key: undefined}
+                    } ),
                 }
         }
     });
 
-    const { error, data } = useQuery(INGREDIENTS);
-
-    const [ingredients, setIngredients] = useState([]);
-
     useEffect(() => {
         const tata = [];
-        if (data && data.getIngredients) {
-            data.getIngredients.map((a) => {
+        if (dataIngredients && dataIngredients.getIngredients) {
+            dataIngredients.getIngredients.map((a) => {
                 tata.push({
                     key: a.title,
-                    cat: a._id,
+                    _id: a._id,
+                    title: a.title,
+                    icon: a.icon,
                 })
             });
             setIngredients(tata)
         }
-    }, [data]);
-
-    const [ingredientsSelected, setIngredientsSelected] = useState([]);
+    }, [dataIngredients]);
 
     useEffect(() => {
-        console.log(ingredientsSelected)
-    }, [ingredientsSelected]);
+        const tata = [];
+        if (dataAccessories && dataAccessories.getAccessories) {
+            dataAccessories.getAccessories.map((a) => {
+                tata.push({
+                    key: a.title,
+                    _id: a._id,
+                    title: a.title,
+                    icon: a.icon,
+                })
+            });
+            setAccessories(tata)
+        }
+    }, [dataAccessories]);
+
+    useEffect(() => {
+        const tata = [];
+        if (dataCategories && dataCategories.getCategories) {
+            dataCategories.getCategories.map((a) => {
+                tata.push({
+                    key: a.title,
+                    _id: a._id,
+                    title: a.title,
+                    icon: a.icon,
+                })
+            });
+            setCategories(tata)
+        }
+    }, [dataCategories]);
 
     const [loading, setLoading ] = useState(false);
 
@@ -130,7 +194,6 @@ function CreateRecipe() {
     return (
         <div className="Admin">
             <h3>Créer une recette</h3>
-
             <div>
                 <form
                     onSubmit={(e) => {
@@ -139,66 +202,94 @@ function CreateRecipe() {
                     }}
                 >
                     <div className="form-input-container">
-                            <input
-                                value={formState.title}
-                                onChange={(e) =>
-                                    setFormState({
-                                        ...formState,
-                                        title: e.target.value
-                                    })
-                                }
-                                type="text"
-                                placeholder="Title"
-                            />
-                            <input
-                                value={formState.instagramUrl}
-                                onChange={(e) =>
-                                    setFormState({
-                                        ...formState,
-                                        instagramUrl: e.target.value
-                                    })
-                                }
-                                type="text"
-                                placeholder="Instagram Url"
-                            />
-                            <input
-                                value={formState.instagramAuthor}
-                                onChange={(e) =>
-                                    setFormState({
-                                        ...formState,
-                                        instagramAuthor: e.target.value
-                                    })
-                                }
-                                type="text"
-                                placeholder="Instagram author"
-                            />
-                            <input
-                                value={formState.preparationTime}
-                                onChange={(e) =>
-                                    setFormState({
-                                        ...formState,
-                                        preparationTime: e.target.value
-                                    })
-                                }
-                                type="text"
-                                placeholder="Preparation time"
-                            />
-                            <input
-                                value={formState.onTop}
-                                onChange={(e) =>
-                                    setFormState({
-                                        ...formState,
-                                        onTop: e.target.value
-                                    })
-                                }
-                                type="text"
-                                placeholder="On Top"
-                            />
-                            <Multiselect
-                                options={ingredients}
-                                displayValue="key"
-                                onSelect={(selectedList) => setIngredientsSelected([...ingredientsSelected, selectedList])}
-                            />
+                        <input
+                            value={formState.title}
+                            onChange={(e) =>
+                                setFormState({
+                                    ...formState,
+                                    title: e.target.value
+                                })
+                            }
+                            type="text"
+                            placeholder="Title"
+                        />
+                        <input
+                            value={formState.instagramUrl}
+                            onChange={(e) =>
+                                setFormState({
+                                    ...formState,
+                                    instagramUrl: e.target.value
+                                })
+                            }
+                            type="text"
+                            placeholder="Instagram Url"
+                        />
+                        <input
+                            value={formState.instagramAuthor}
+                            onChange={(e) =>
+                                setFormState({
+                                    ...formState,
+                                    instagramAuthor: e.target.value
+                                })
+                            }
+                            type="text"
+                            placeholder="Instagram author"
+                        />
+                        <input
+                            value={formState.preparationTime}
+                            onChange={(e) =>
+                                setFormState({
+                                    ...formState,
+                                    preparationTime: e.target.value
+                                })
+                            }
+                            type="text"
+                            placeholder="Preparation time"
+                        />
+                        <input
+                            value={formState.onTop}
+                            onChange={(e) =>
+                                setFormState({
+                                    ...formState,
+                                    onTop: e.target.value
+                                })
+                            }
+                            type="text"
+                            placeholder="On Top"
+                        />
+                        <Multiselect
+                            placeholder="Ingredients"
+                            options={ingredients}
+                            displayValue="key"
+                            onSelect={(selectedList) => {
+                                setIngredientsSelected([...selectedList])
+                            }}
+                            onRemove={(selectedList => {
+                                setIngredientsSelected([...selectedList])
+                            })}
+                        />
+                        <Multiselect
+                            placeholder="Accessoires"
+                            options={accessories}
+                            displayValue="key"
+                            onSelect={(selectedList) => {
+                                setAccessoriesSelected([...selectedList])
+                            }}
+                            onRemove={(selectedList => {
+                                setAccessoriesSelected([...selectedList])
+                            })}
+                        />
+                        <Multiselect
+                            placeholder="Categories"
+                            options={categories}
+                            displayValue="key"
+                            onSelect={(selectedList) => {
+                                setCategoriesSelected([...selectedList])
+                            }}
+                            onRemove={(selectedList => {
+                                setCategoriesSelected([...selectedList])
+                            })}
+                        />
                     </div>
                     <div className="input-file-container">
                         <label htmlFor="file" className="label-file">Choisir une image</label>
