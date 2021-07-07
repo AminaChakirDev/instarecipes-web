@@ -8,6 +8,7 @@ query getIngredients {
     _id
     title
     icon
+    slug
   }
 }
 `;
@@ -22,8 +23,8 @@ function IngredientsList() {
     return (
         <div>
             {
-                data && data.getIngredients.map(({ title, icon }) =>(
-                    <Ingredient title={title} icon={icon}/>
+                data && data.getIngredients.map(({ title, icon, slug }) =>(
+                    <Ingredient title={title} icon={icon} slug={slug}/>
                 ))
             }
         </div>

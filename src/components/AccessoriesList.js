@@ -7,6 +7,7 @@ query getAccessories {
     _id
     title
     icon
+    slug
   }
 }
 `;
@@ -21,8 +22,8 @@ function AccessoriesList() {
     return (
         <div>
             {
-                data.getAccessories.map(({ title, icon }) =>(
-                    <Accessory title={title} icon={icon}/>
+                data.getAccessories.map(({ title, icon, slug }) =>(
+                    <Accessory title={title} icon={icon} slug={slug}/>
                 ))
             }
         </div>

@@ -11,6 +11,7 @@ query getIngredients {
     _id
     title
     icon
+    slug
   }
 }
 `;
@@ -21,6 +22,7 @@ query getAccessories {
     _id
     title
     icon
+    slug
   }
 }
 `;
@@ -30,6 +32,7 @@ query getCategories {
   getCategories {
     _id
     title
+    slug
     icon
   }
 }
@@ -143,6 +146,7 @@ function AdminRecipe() {
                     _id: a._id,
                     title: a.title,
                     icon: a.icon,
+                    slug: a.slug,
                 })
             });
             setIngredientsList(ingredientsArray)
@@ -156,6 +160,7 @@ function AdminRecipe() {
                     _id: a._id,
                     title: a.title,
                     icon: a.icon,
+                    slug: a.slug,
                 })
             });
             setAccessoriesList(accessoriesArray)
@@ -169,6 +174,7 @@ function AdminRecipe() {
                     _id: a._id,
                     title: a.title,
                     icon: a.icon,
+                    slug: a.slug,
                 })
             });
             setCategoriesList(categoriesArray)

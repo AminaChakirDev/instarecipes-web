@@ -22,16 +22,19 @@ const RECIPES = gql`
           _id
           title
           icon
+          slug
         }
         accessories {
           _id
           title
           icon
+          slug
         }
         categories {
           _id
           title
           icon
+          slug
         }
       }
     }

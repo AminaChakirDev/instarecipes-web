@@ -7,6 +7,7 @@ query getCategories {
     _id
     title
     icon
+    slug
   }
 }
 `;
@@ -21,8 +22,8 @@ function CategoriesList() {
     return (
         <div>
             {
-                data.getCategories.map(({ title, icon }) =>(
-                    <Category title={title} icon={icon}/>
+                data.getCategories.map(({ title, icon, slug }) =>(
+                    <Category title={title} icon={icon} slug={slug}/>
                 ))
             }
         </div>
