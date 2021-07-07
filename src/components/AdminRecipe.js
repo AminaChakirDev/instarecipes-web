@@ -2,7 +2,9 @@ import {Link, useLocation} from "react-router-dom";
 import {Image} from "cloudinary-react";
 import React, {useEffect, useState} from "react";
 import {Multiselect} from "multiselect-react-dropdown";
-import {gql, useQuery} from "@apollo/client";
+import {gql, useMutation, useQuery} from "@apollo/client";
+import noImage from "../no-image-icon.png";
+import slugify from "slugify";
 
 const INGREDIENTS = gql`
 query getIngredients {
@@ -34,6 +36,26 @@ query getCategories {
 }
 `;
 
+const DELETE_RECIPE = gql`
+  mutation DeleteRecipe ($_id: String!) {
+    deleteRecipe (
+       _id: $_id
+    )
+  }
+`;
+
+const UPDATE_RECIPE = gql`
+  mutation UpdateRecipe(
+    $data: RecipeInput!
+    $_id: String!
+  ) {
+    updateRecipe(data: $data, _id: $_id) {
+      _id
+      title
+    }
+  }
+`;
+
 function AdminRecipe() {
 
     const location = useLocation();
@@ -41,28 +63,78 @@ function AdminRecipe() {
 
     const dataIngredients = useQuery(INGREDIENTS).data;
     const [ingredientsList, setIngredientsList] = useState([]);
-    const [ingredientsSelected, setIngredientsSelected] = useState([]);
+    const [ingredientsSelectedUpdated, setIngredientsSelectedUpdated] = useState([]);
     const [ingredients, setIngredients] = useState([]);
 
     const dataAccessories = useQuery(ACCESSORIES).data;
     const [accessoriesList, setAccessoriesList] = useState([]);
-    const [accessoriesSelected, setAccessoriesSelected] = useState([]);
+    const [accessoriesSelectedUpdated, setAccessoriesSelectedUpdated] = useState([]);
     const [accessories, setAccessories] = useState([]);
 
     const dataCategories = useQuery(CATEGORIES).data;
     const [categoriesList, setCategoriesList] = useState([]);
-    const [categoriesSelected, setCategoriesSelected] = useState([]);
+    const [categoriesSelectedUpdated, setCategoriesSelectedUpdated] = useState([]);
     const [categories, setCategories] = useState([]);
+
+    const [deleteRecipe] = useMutation(DELETE_RECIPE, {
+        variables: {
+            _id: recipe._id
+        }
+    });
+
+    const [formState, setFormState] = useState({
+        title: recipe.title,
+        instagramUrl: recipe.instagramUrl,
+        instagramAuthor: recipe.instagramAuthor,
+        preparationTime: recipe.preparationTime,
+        onTop: false,
+        poster: recipe.poster,
+    });
+
+    const [updateRecipe] = useMutation(UPDATE_RECIPE, {
+        variables: {
+            _id: recipe._id,
+            data:
+                {
+                    ...formState,
+                    createdAt: recipe.createdAt,
+                    updatedAt: new Intl.DateTimeFormat(
+                        'fr-FR',
+                        {
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit'
+                        })
+                        .format(Date.now()),
+                    slug: slugify(formState.title),
+                    ingredients: ingredientsSelectedUpdated.map((ingredientSelectedUpdated) => {
+                        return {... ingredientSelectedUpdated, key: undefined, __typename: undefined}
+                    } ),
+                    accessories: accessoriesSelectedUpdated.map((accessorySelectedUpdated) => {
+                        return {... accessorySelectedUpdated, key: undefined, __typename: undefined}
+                    } ),
+                    categories: categoriesSelectedUpdated.map((categorySelectedUpdated) => {
+                        return {... categorySelectedUpdated, key: undefined, __typename: undefined}
+                    } ),
+                }
+        }
+    });
 
     useEffect(() => {
         const ingredients = recipe.ingredients.map((ingredient) => { return {...ingredient, key:ingredient.title}})
         setIngredients(ingredients);
+        setIngredientsSelectedUpdated(ingredients);
 
         const accessories = recipe.accessories.map((accessory) => { return {...accessory, key:accessory.title}})
         setAccessories(accessories);
+        setAccessoriesSelectedUpdated(accessories);
 
         const categories = recipe.categories.map((category) => { return {...category, key:category.title}})
         setCategories(categories);
+        setCategoriesSelectedUpdated(categories);
 
         const ingredientsArray = [];
         if (dataIngredients && dataIngredients.getIngredients) {
@@ -102,12 +174,12 @@ function AdminRecipe() {
             });
             setCategoriesList(categoriesArray)
         }
-    }, []);
+    }, [dataAccessories, dataIngredients, dataCategories]);
 
     return (
         <div key={recipe.title}>
             <iframe
-                src={recipe.instagramUrl}
+                src={formState.instagramUrl}
                 width="400"
                 height="400"
                 frameBorder="0"
@@ -118,46 +190,54 @@ function AdminRecipe() {
             </iframe>
             <p>Lien post instagram :</p>
             <input
-                value={recipe.instagramUrl}
+                value={formState.instagramUrl}
+                onChange={(e) =>
+                    setFormState({
+                        ...formState,
+                        instagramUrl: e.target.value
+                    })
+                }
                 type="text"
                 placeholder="Lien du post instagram"
             />
             <p>Titre :</p>
             <input
-                value={recipe.title}
+                value={formState.title}
+                onChange={(e) =>
+                    setFormState({
+                        ...formState,
+                        title: e.target.value
+                    })
+                }
                 type="text"
                 placeholder="Titre de la recette"
             />
             <p>Instagrammeur.euse :</p>
             <input
-                value={recipe.instagramAuthor}
+                value={formState.instagramAuthor}
+                onChange={(e) =>
+                    setFormState({
+                        ...formState,
+                        instagramAuthor: e.target.value
+                    })
+                }
                 type="text"
                 placeholder="Auteur du post"
             />
             <p>Temps de préparation :</p>
             <input
-                value={recipe.preparationTime}
+                value={formState.preparationTime}
+                onChange={(e) =>
+                    setFormState({
+                        ...formState,
+                        preparationTime: e.target.value
+                    })
+                }
                 type="text"
                 placeholder="Temps de préparation"
             />
             <p>Image de présentation :</p>
             <Image cloudName="dz632zpoz" publicId={recipe.poster} width="50" crop="scale" />
-            <table>
-                <caption>Ingrédients</caption>
-                <tr>
-                    <th>Nom</th>
-                    <th>Icon</th>
-                </tr>
-                {
-                    recipe.ingredients.map(({ title, icon }) =>(
-                        <tr>
-                            <td>{title}</td>
-                            <td>{icon}</td>
-                        </tr>
-                    ))
-                }
-            </table>
-            <p>Ingrédients</p>
             <Multiselect
                 placeholder="Ingrédients"
                 emptyRecordMsg="Plus de résultat"
@@ -165,28 +245,12 @@ function AdminRecipe() {
                 selectedValues={ingredients}
                 displayValue="key"
                 onSelect={(selectedList) => {
-                    setIngredientsSelected([...selectedList])
+                    setIngredientsSelectedUpdated([...selectedList])
                 }}
                 onRemove={(selectedList => {
-                    setIngredientsSelected([...selectedList])
+                    setIngredientsSelectedUpdated([...selectedList])
                 })}
             />
-            <table>
-                <caption>Accessoires</caption>
-                <tr>
-                    <th>Nom</th>
-                    <th>Icon</th>
-                </tr>
-                {
-                    recipe.accessories.map(({ title, icon }) =>(
-                        <tr>
-                            <td>{title}</td>
-                            <td>{icon}</td>
-                        </tr>
-                    ))
-                }
-            </table>
-            <p>Catégories</p>
             <Multiselect
                 placeholder="Accessoires"
                 emptyRecordMsg="Plus de résultat"
@@ -194,28 +258,12 @@ function AdminRecipe() {
                 selectedValues={accessories}
                 displayValue="key"
                 onSelect={(selectedList) => {
-                    setAccessoriesSelected([...selectedList])
+                    setAccessoriesSelectedUpdated([...selectedList])
                 }}
                 onRemove={(selectedList => {
-                    setAccessoriesSelected([...selectedList])
+                    setAccessoriesSelectedUpdated([...selectedList])
                 })}
             />
-            <table>
-                <caption>Catégories</caption>
-                <tr>
-                    <th>Nom</th>
-                    <th>Icon</th>
-                </tr>
-                {
-                    recipe.categories.map(({ title, icon }) =>(
-                        <tr>
-                            <td>{title}</td>
-                            <td>{icon}</td>
-                        </tr>
-                    ))
-                }
-            </table>
-            <p>Catégories</p>
             <Multiselect
                 placeholder="Catégories"
                 emptyRecordMsg="Plus de résultat"
@@ -223,14 +271,14 @@ function AdminRecipe() {
                 selectedValues={categories}
                 displayValue="key"
                 onSelect={(selectedList) => {
-                    setCategoriesSelected([...selectedList])
+                    setCategoriesSelectedUpdated([...selectedList])
                 }}
                 onRemove={(selectedList => {
-                    setCategoriesSelected([...selectedList])
+                    setCategoriesSelectedUpdated([...selectedList])
                 })}
             />
-            <button>Appliquer les modifications</button>
-            <button>Supprimer la recette</button>
+            <button onClick={() => updateRecipe()}>Appliquer les modifications</button>
+            <button onClick={() => deleteRecipe()}>Supprimer la recette</button>
         </div>
     )
 }

@@ -1,5 +1,4 @@
 import CreateRecipe from "./CreateRecipe";
-import DeleteRecipe from "./DeleteRecipe";
 import {gql, useQuery} from "@apollo/client";
 import {Image} from "cloudinary-react";
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
@@ -66,11 +65,14 @@ function AdminRecipes() {
                             data.getRecipes.map(({
                                  _id,
                                  title,
+                                 onTop,
                                  slug,
                                  instagramAuthor,
                                  instagramUrl,
                                  preparationTime,
                                  poster,
+                                 createdAt,
+                                 updatedAt,
                                  ingredients,
                                  accessories,
                                  categories
@@ -82,10 +84,14 @@ function AdminRecipes() {
                                                 pathname: `/admin/recipes/${slug}`,
                                                 state: {
                                                     recipe: {
+                                                        _id,
                                                         title,
+                                                        onTop,
                                                         instagramAuthor,
                                                         instagramUrl,
                                                         preparationTime,
+                                                        createdAt,
+                                                        updatedAt,
                                                         poster,
                                                         ingredients,
                                                         accessories,
@@ -121,7 +127,6 @@ function AdminRecipes() {
             }
 
             <CreateRecipe/>
-            <DeleteRecipe/>
         </div>
     );
 }
