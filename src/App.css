@@ -5,6 +5,10 @@
 
 /************************** A P P L I C A B L E   A   T O U T   L E   D O C U M E N T  *****************************/
 
+input {
+  width: 600px;
+}
+
 a {
   text-decoration: none;
   color: #2C001B;
@@ -12,6 +16,15 @@ a {
 
 li {
   list-style-type: none;
+}
+
+table
+{
+  border-collapse: collapse;
+}
+td, th /* Mettre une bordure sur les td ET les th */
+{
+  border: 1px solid black;
 }
 
 .App {
@@ -97,7 +110,7 @@ li {
 }
 
 .admin-page input {
-  width: 300px;
+  width: 600px;
   height: 30px;
 }
 
