@@ -1,9 +1,8 @@
-import {Link, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {Image} from "cloudinary-react";
 import React, {useEffect, useState} from "react";
 import {Multiselect} from "multiselect-react-dropdown";
 import {gql, useMutation, useQuery} from "@apollo/client";
-import noImage from "../no-image-icon.png";
 import slugify from "slugify";
 
 const INGREDIENTS = gql`
@@ -111,13 +110,13 @@ function AdminRecipe() {
                         .format(Date.now()),
                     slug: slugify(formState.title),
                     ingredients: ingredientsSelectedUpdated.map((ingredientSelectedUpdated) => {
-                        return {... ingredientSelectedUpdated, key: undefined, __typename: undefined}
+                        return {...ingredientSelectedUpdated, key: undefined, __typename: undefined}
                     } ),
                     accessories: accessoriesSelectedUpdated.map((accessorySelectedUpdated) => {
-                        return {... accessorySelectedUpdated, key: undefined, __typename: undefined}
+                        return {...accessorySelectedUpdated, key: undefined, __typename: undefined}
                     } ),
                     categories: categoriesSelectedUpdated.map((categorySelectedUpdated) => {
-                        return {... categorySelectedUpdated, key: undefined, __typename: undefined}
+                        return {...categorySelectedUpdated, key: undefined, __typename: undefined}
                     } ),
                 }
         }
@@ -139,7 +138,7 @@ function AdminRecipe() {
         const ingredientsArray = [];
         if (dataIngredients && dataIngredients.getIngredients) {
             dataIngredients.getIngredients.map((a) => {
-                ingredientsArray.push({
+                return ingredientsArray.push({
                     key: a.title,
                     _id: a._id,
                     title: a.title,
@@ -152,7 +151,7 @@ function AdminRecipe() {
         const accessoriesArray = [];
         if (dataAccessories && dataAccessories.getAccessories) {
             dataAccessories.getAccessories.map((a) => {
-                accessoriesArray.push({
+                return accessoriesArray.push({
                     key: a.title,
                     _id: a._id,
                     title: a.title,
@@ -165,7 +164,7 @@ function AdminRecipe() {
         const categoriesArray = [];
         if (dataCategories && dataCategories.getCategories) {
             dataCategories.getCategories.map((a) => {
-                categoriesArray.push({
+                return categoriesArray.push({
                     key: a.title,
                     _id: a._id,
                     title: a.title,

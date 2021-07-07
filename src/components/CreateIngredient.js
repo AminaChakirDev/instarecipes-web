@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
+import slugify from "slugify";
 
 const CREATE_INGREDIENT = gql`
   mutation CreateIngredient(
@@ -9,20 +10,23 @@ const CREATE_INGREDIENT = gql`
       _id
       title
       icon
+      slug
     }
   }
 `;
 
 const CreateIngredient = () => {
     const [formState, setFormState] = useState({
-        title: 'chocolat',
-        icon: 'chocolat url'
+        title: '',
+        icon: ''
     });
 
     const [createIngredient] = useMutation(CREATE_INGREDIENT, {
         variables: {
-            data:
-                formState
+            data: {
+                ...formState,
+                slug: slugify(formState.title),
+            }
         }
     });
 

@@ -1,6 +1,5 @@
 import { useQuery, gql } from '@apollo/client';
 import Category from "./Category";
-import {Link} from "react-router-dom";
 
 const CATEGORIES = gql`
 query getCategories {

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
+import slugify from "slugify";
 
 const CREATE_ACCESSORY = gql`
   mutation CreateAccessory(
@@ -9,20 +10,23 @@ const CREATE_ACCESSORY = gql`
       _id
       title
       icon
+      slug
     }
   }
 `;
 
 const CreateAccessory = () => {
     const [formState, setFormState] = useState({
-        title: 'pic en bois',
-        icon: 'pic en bois url'
+        title: '',
+        icon: ''
     });
 
     const [createAccessory] = useMutation(CREATE_ACCESSORY, {
         variables: {
-            data:
-            formState
+            data: {
+                ...formState,
+                slug: slugify(formState.title),
+            }
         }
     });
 

@@ -24,6 +24,9 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import RecipeDetails from "./components/RecipeDetails";
 import AdminAccessories from "./components/AdminAccessories";
 import AdminRecipe from "./components/AdminRecipe";
+import AdminIngredient from "./components/AdminIngredient";
+import AdminAccessory from "./components/AdminAccessory";
+import AdminCategory from "./components/AdminCategory";
 
 function App() {
   return (
@@ -63,18 +66,21 @@ function App() {
                     <Route path="/ingredients">
                         <IngredientsList />
                     </Route>
+                    <Route path="/admin/ingredients/:slug" component={AdminIngredient}/>
                     <Route path="/admin/ingredients">
                         <AdminIngredients />
                     </Route>
                     <Route path="/accessories">
                         <AccessoriesList />
                     </Route>
+                    <Route path="/admin/accessories/:slug" component={AdminAccessory}/>
                     <Route path="/admin/accessories">
                         <AdminAccessories />
                     </Route>
                     <Route path="/categories">
                         <CategoriesList />
                     </Route>
+                    <Route path="/admin/categories/:slug" component={AdminCategory}/>
                     <Route path="/admin/categories">
                         <AdminCategories />
                     </Route>

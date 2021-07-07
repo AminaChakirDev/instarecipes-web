@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
+import slugify from "slugify";
 
 const CREATE_CATEGORY = gql`
   mutation CreateCategory(
@@ -9,20 +10,23 @@ const CREATE_CATEGORY = gql`
       _id
       title
       icon
+      slug
     }
   }
 `;
 
 const CreateCategory = () => {
     const [formState, setFormState] = useState({
-        title: 'gouter',
-        icon: 'gouter url'
+        title: '',
+        icon: ''
     });
 
     const [createCategory] = useMutation(CREATE_CATEGORY, {
         variables: {
-            data:
-            formState
+            data: {
+                ...formState,
+                slug: slugify(formState.title),
+            }
         }
     });
 

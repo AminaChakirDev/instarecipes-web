@@ -4,7 +4,6 @@ import noImage from './../no-image-icon.png';
 import Loader from "react-js-loader";
 import slugify from "slugify";
 import { Multiselect } from 'multiselect-react-dropdown';
-import {Button} from "@material-ui/core";
 
 const CREATE_RECIPE = gql`
   mutation CreateRecipe(
@@ -89,60 +88,60 @@ function CreateRecipe() {
                         .format(Date.now()),
                     slug: slugify(formState.title),
                     ingredients: ingredientsSelected.map((ingredientSelected) => {
-                        return {... ingredientSelected, key: undefined}
+                        return {...ingredientSelected, key: undefined}
                     } ),
                     accessories: accessoriesSelected.map((accessorySelected) => {
-                        return {... accessorySelected, key: undefined}
+                        return {...accessorySelected, key: undefined}
                     } ),
                     categories: categoriesSelected.map((categorySelected) => {
-                        return {... categorySelected, key: undefined}
+                        return {...categorySelected, key: undefined}
                     } ),
                 }
         }
     });
 
     useEffect(() => {
-        const tata = [];
+        const ingredientsArray = [];
         if (dataIngredients && dataIngredients.getIngredients) {
             dataIngredients.getIngredients.map((a) => {
-                tata.push({
+                return ingredientsArray.push({
                     key: a.title,
                     _id: a._id,
                     title: a.title,
                     icon: a.icon,
                 })
             });
-            setIngredients(tata)
+            setIngredients(ingredientsArray)
         }
     }, [dataIngredients]);
 
     useEffect(() => {
-        const tata = [];
+        const accessoriesArray = [];
         if (dataAccessories && dataAccessories.getAccessories) {
-            dataAccessories.getAccessories.map((a) => {
-                tata.push({
+            return dataAccessories.getAccessories.map((a) => {
+                accessoriesArray.push({
                     key: a.title,
                     _id: a._id,
                     title: a.title,
                     icon: a.icon,
                 })
             });
-            setAccessories(tata)
+            setAccessories(accessoriesArray)
         }
     }, [dataAccessories]);
 
     useEffect(() => {
-        const tata = [];
+        const categoriesArray = [];
         if (dataCategories && dataCategories.getCategories) {
             dataCategories.getCategories.map((a) => {
-                tata.push({
+                categoriesArray.push({
                     key: a.title,
                     _id: a._id,
                     title: a.title,
                     icon: a.icon,
                 })
             });
-            setCategories(tata)
+            setCategories(categoriesArray)
         }
     }, [dataCategories]);
 
@@ -286,7 +285,7 @@ function CreateRecipe() {
                             loading ?
                                 <Loader type="rectangular-ping" bgColor={"#FF3453"} title={"rectangular-ping"} size={100} />
                             :
-                                <img className="upload-poster" src={formState.poster}/>
+                                <img className="upload-poster" src={formState.poster} alt="Photo de la recette"/>
                         }
                         <button className="button" type="submit">AJOUTER LA RECETTE</button>
                     </div>
