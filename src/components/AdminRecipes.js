@@ -3,7 +3,8 @@ import DeleteRecipe from "./DeleteRecipe";
 import {gql, useQuery} from "@apollo/client";
 import {Image} from "cloudinary-react";
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import CreateIcon from '@material-ui/icons/Create';
+import SearchIcon from '@material-ui/icons/Search';
+import {Link} from "react-router-dom";
 
 const RECIPES = gql`
     query getRecipes {
@@ -49,12 +50,18 @@ function AdminRecipes() {
                     <table>
                         <caption>Liste des recettes</caption>
                         <tr>
+                            <th>Voir</th>
                             <th>poster</th>
                             <th>title</th>
                             <th>slug</th>
                             <th>Auteur</th>
                             <th>Post instagram</th>
-                            <th>Temps de préparation</th><th>Accessoires</th><th>Catégories</th><th>Supprimer</th><th>Modifier</th></tr>
+                            <th>Temps de préparation</th>
+                            <th>Ingrédients</th>
+                            <th>Accessoires</th>
+                            <th>Catégories</th>
+                            <th>Supprimer</th>
+                        </tr>
                         {
                             data.getRecipes.map(({
                                  _id,
@@ -69,6 +76,27 @@ function AdminRecipes() {
                                  categories
                             }) =>(
                                 <tr>
+                                    <td>
+                                        <Link
+                                            to={{
+                                                pathname: `/admin/recipes/${slug}`,
+                                                state: {
+                                                    recipe: {
+                                                        title,
+                                                        instagramAuthor,
+                                                        instagramUrl,
+                                                        preparationTime,
+                                                        poster,
+                                                        ingredients,
+                                                        accessories,
+                                                        categories
+                                                    }
+                                                }
+                                            }}
+                                        >
+                                            <SearchIcon fontSize="small"/>
+                                        </Link>
+                                    </td>
                                     <td><Image cloudName="dz632zpoz" publicId={poster} width="50" crop="scale" /></td>
                                     <td>{title}</td>
                                     <td>{slug}</td>
@@ -79,16 +107,13 @@ function AdminRecipes() {
                                         <ul>{ingredients.map((ingredient)=> <li>{ingredient.title}</li>)}</ul>
                                     </td>
                                     <td>
-                                        <ul>{ingredients.map((ingredient)=> <li>{ingredient.title}</li>)}</ul>
-                                    </td>
-                                    <td>
                                         <ul>{accessories.map((accessory)=> <li>{accessory.title}</li>)}</ul>
                                     </td>
                                     <td>
                                         <ul>{categories.map((category)=> <li>{category.title}</li>)}</ul>
                                     </td>
                                     <td><HighlightOffIcon fontSize="small"/></td>
-                                    <td><CreateIcon fontSize="small"/></td></tr>
+                                </tr>
                             ))
                         }
                     </table>
