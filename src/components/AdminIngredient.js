@@ -26,7 +26,7 @@ const UPDATE_INGREDIENT = gql`
 function AdminIngredient() {
 
     const location = useLocation();
-    const {ingredient} = location.state;
+    const {ingredient} = location.state.ingredient;
 
     const [deleteIngredient] = useMutation(DELETE_INGREDIENT, {
         variables: {

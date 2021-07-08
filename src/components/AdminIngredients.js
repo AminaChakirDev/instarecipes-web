@@ -1,8 +1,6 @@
 import CreateIngredient from "./CreateIngredient";
 import {gql, useQuery} from "@apollo/client";
-import {Link} from "react-router-dom";
-import SearchIcon from "@material-ui/icons/Search";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import { useHistory } from "react-router-dom";
 
 const INGREDIENTS = gql`
 query getIngredients {
@@ -19,6 +17,17 @@ function AdminIngredients() {
 
     const { loading, error, data } = useQuery(INGREDIENTS);
 
+    let history = useHistory();
+
+    const handleClick = (ingredient) => {
+        history.push({
+            pathname: `/admin/ingredients/${ingredient.slug}`,
+            state: {
+                ingredient: {ingredient}
+            }
+        })
+    }
+
     return (
         <div>
             <div className="admin-page">
@@ -26,43 +35,22 @@ function AdminIngredients() {
                 {
                     data && data.getIngredients ?
                         <table>
-                            <caption>Liste des ingrédients</caption>
-                            <tr>
-                                <th>Voir</th>
-                                <th>title</th>
-                                <th>Icon</th>
-                            </tr>
-                            {
-                                data.getIngredients.map(({
-                                                         _id,
-                                                         title,
-                                                         icon,
-                                                         slug
-                                                     }) =>(
-                                    <tr>
-                                        <td>
-                                            <Link
-                                                to={{
-                                                    pathname: `/admin/ingredients/${slug}`,
-                                                    state: {
-                                                        ingredient: {
-                                                            _id,
-                                                            title,
-                                                            icon,
-                                                            slug,
-                                                        }
-                                                    }
-                                                }}
-                                            >
-                                                <SearchIcon fontSize="small"/>
-                                            </Link>
-                                        </td>
-                                        <td>{title}</td>
-                                        <td>{icon}</td>
-                                        <td><HighlightOffIcon fontSize="small"/></td>
-                                    </tr>
-                                ))
-                            }
+                            <thead>
+                                <tr>
+                                    <th>title</th>
+                                    <th>Icon</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    data.getIngredients.map((ingredient) =>(
+                                        <tr key={ingredient._id} onClick={() => handleClick(ingredient)}>
+                                            <td>{ingredient.title}</td>
+                                            <td>{ingredient.icon}</td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
                         </table>
                         : ""
                 }
