@@ -15,7 +15,10 @@ const CREATE_ACCESSORY = gql`
   }
 `;
 
-const CreateAccessory = () => {
+const CreateAccessory = ({showCreate, onClose}) => {
+
+
+
     const [formState, setFormState] = useState({
         title: '',
         icon: ''
@@ -30,41 +33,54 @@ const CreateAccessory = () => {
         }
     });
 
+    if (!showCreate) {
+        return null
+    }
+
     return (
-        <div>
-            <h3>Créer un accessoire</h3>
-            <form
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    createAccessory();
-                }}
-            >
-                <div>
-                    <input
-                        value={formState.title}
-                        onChange={(e) =>
-                            setFormState({
-                                ...formState,
-                                title: e.target.value
-                            })
-                        }
-                        type="text"
-                        placeholder="Title accessory"
-                    />
-                    <input
-                        value={formState.icon}
-                        onChange={(e) =>
-                            setFormState({
-                                ...formState,
-                                icon: e.target.value
-                            })
-                        }
-                        type="text"
-                        placeholder="Icon accessory"
-                    />
+        <div className="modal">
+            <div className="modal-content">
+                <div className="modal-header">
+                    <h3 className="modal-title">Créer un accessoire</h3>
                 </div>
-                <button type="submit">Submit</button>
-            </form>
+                <div className="modal-body">
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            createAccessory();
+                        }}
+                    >
+                        <div>
+                            <input
+                                value={formState.title}
+                                onChange={(e) =>
+                                    setFormState({
+                                        ...formState,
+                                        title: e.target.value
+                                    })
+                                }
+                                type="text"
+                                placeholder="Title accessory"
+                            />
+                            <input
+                                value={formState.icon}
+                                onChange={(e) =>
+                                    setFormState({
+                                        ...formState,
+                                        icon: e.target.value
+                                    })
+                                }
+                                type="text"
+                                placeholder="Icon accessory"
+                            />
+                        </div>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+                <div className="modal-footer">
+                    <button onClick={onClose} className="button">Fermer</button>
+                </div>
+            </div>
         </div>
     );
 };

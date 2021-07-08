@@ -1,6 +1,7 @@
 import CreateAccessory from "./CreateAccessory";
 import {gql, useQuery} from "@apollo/client";
 import { useHistory } from "react-router-dom";
+import {useState} from "react";
 
 const ACCESSORIES = gql`
 query getAccessories {
@@ -16,6 +17,8 @@ query getAccessories {
 function AdminAccessories() {
 
     const { loading, error, data } = useQuery(ACCESSORIES);
+
+    const [showCreate, setShowCreate] = useState(false);
 
     let history = useHistory();
 
@@ -59,7 +62,8 @@ function AdminAccessories() {
                 }
                 <button onClick={()=>history.push("/admin")}>Retour au menu</button>
             </div>
-            <CreateAccessory/>
+            <button onClick={() => setShowCreate(true)}>Ajouter une recette</button>
+            <CreateAccessory showCreate={showCreate} onClose={() => setShowCreate(false)}/>
         </div>
     );
 }
