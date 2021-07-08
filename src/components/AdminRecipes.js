@@ -2,6 +2,7 @@ import CreateRecipe from "./CreateRecipe";
 import {gql, useQuery} from "@apollo/client";
 import {Image} from "cloudinary-react";
 import { useHistory } from "react-router-dom";
+import {useState} from "react";
 
 const RECIPES = gql`
     query getRecipes {
@@ -41,6 +42,8 @@ const RECIPES = gql`
 function AdminRecipes() {
 
     const { loading, error, data } = useQuery(RECIPES);
+
+    const [showCreate, setShowCreate] = useState(false);
 
     let history = useHistory();
 
@@ -88,7 +91,8 @@ function AdminRecipes() {
                 : ""
             }
             <button onClick={()=>history.push("/admin")}>Retour au menu</button>
-            <CreateRecipe/>
+            <button onClick={() => setShowCreate(true)}>Ajouter une recette</button>
+            <CreateRecipe showCreate={showCreate} onClose={() => setShowCreate(false)}/>
         </div>
     );
 }

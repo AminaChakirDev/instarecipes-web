@@ -17,8 +17,6 @@ const CREATE_ACCESSORY = gql`
 
 const CreateAccessory = ({showCreate, onClose}) => {
 
-
-
     const [formState, setFormState] = useState({
         title: '',
         icon: ''

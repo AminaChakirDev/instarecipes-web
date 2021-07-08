@@ -46,7 +46,7 @@ query getCategories {
 }
 `;
 
-function CreateRecipe() {
+function CreateRecipe({showCreate, onClose}) {
 
     const [formState, setFormState] = useState({
         title: 'Brownie',
@@ -168,130 +168,140 @@ function CreateRecipe() {
             .catch(err => console.log(err))
     }
 
-    return (
-        <div className="Admin">
-            <h3>Créer une recette</h3>
-            <div>
-                <form
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        createRecipe();
-                    }}
-                >
-                    <div className="form-input-container">
-                        <input
-                            value={formState.title}
-                            onChange={(e) =>
-                                setFormState({
-                                    ...formState,
-                                    title: e.target.value
-                                })
-                            }
-                            type="text"
-                            placeholder="Title"
-                        />
-                        <input
-                            value={formState.instagramUrl}
-                            onChange={(e) =>
-                                setFormState({
-                                    ...formState,
-                                    instagramUrl: e.target.value
-                                })
-                            }
-                            type="text"
-                            placeholder="Instagram Url"
-                        />
-                        <input
-                            value={formState.instagramAuthor}
-                            onChange={(e) =>
-                                setFormState({
-                                    ...formState,
-                                    instagramAuthor: e.target.value
-                                })
-                            }
-                            type="text"
-                            placeholder="Instagram author"
-                        />
-                        <input
-                            value={formState.preparationTime}
-                            onChange={(e) =>
-                                setFormState({
-                                    ...formState,
-                                    preparationTime: e.target.value
-                                })
-                            }
-                            type="text"
-                            placeholder="Preparation time"
-                        />
-                        <input
-                            value={formState.onTop}
-                            onChange={(e) =>
-                                setFormState({
-                                    ...formState,
-                                    onTop: e.target.value
-                                })
-                            }
-                            type="text"
-                            placeholder="On Top"
-                        />
-                        <Multiselect
-                            placeholder="Ingredients"
-                            emptyRecordMsg="Plus de résultat"
-                            options={ingredients}
-                            displayValue="key"
-                            onSelect={(selectedList) => {
-                                setIngredientsSelected([...selectedList])
-                            }}
-                            onRemove={(selectedList => {
-                                setIngredientsSelected([...selectedList])
-                            })}
-                        />
-                        <Multiselect
-                            placeholder="Accessoires"
-                            emptyRecordMsg="Plus de résultat"
-                            options={accessories}
-                            displayValue="key"
-                            onSelect={(selectedList) => {
-                                setAccessoriesSelected([...selectedList])
-                            }}
-                            onRemove={(selectedList => {
-                                setAccessoriesSelected([...selectedList])
-                            })}
-                        />
-                        <Multiselect
-                            placeholder="Categories"
-                            emptyRecordMsg="Plus de résultat"
-                            options={categories}
-                            displayValue="key"
-                            onSelect={(selectedList) => {
-                                setCategoriesSelected([...selectedList])
-                            }}
-                            onRemove={(selectedList => {
-                                setCategoriesSelected([...selectedList])
-                            })}
-                        />
-                    </div>
-                    <div className="input-file-container">
-                        <label htmlFor="file" className="label-file">Choisir une image</label>
-                        <input
-                            id="file"
-                            className="input-file"
-                            type="file"
-                            onChange= {(e)=> {
-                                uploadImage(e)
-                            }}
-                        />
-                        {
-                            loading ?
-                                <Loader type="rectangular-ping" bgColor={"#FF3453"} title={"rectangular-ping"} size={100} />
-                            :
-                                <img className="upload-poster" src={formState.poster} alt="Photo de la recette"/>
-                        }
-                        <button className="button" type="submit">AJOUTER LA RECETTE</button>
-                    </div>
-                </form>
-            </div>
+    if (!showCreate) {
+        return null
+    }
 
+    return (
+        <div className="modal">
+            <div className="modal-content">
+                <div className="modal-header">
+                    <h3>Créer une recette</h3>
+                </div>
+                <div className="modal-body">
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            createRecipe();
+                        }}
+                    >
+                        <div className="form-input-container">
+                            <input
+                                value={formState.title}
+                                onChange={(e) =>
+                                    setFormState({
+                                        ...formState,
+                                        title: e.target.value
+                                    })
+                                }
+                                type="text"
+                                placeholder="Title"
+                            />
+                            <input
+                                value={formState.instagramUrl}
+                                onChange={(e) =>
+                                    setFormState({
+                                        ...formState,
+                                        instagramUrl: e.target.value
+                                    })
+                                }
+                                type="text"
+                                placeholder="Instagram Url"
+                            />
+                            <input
+                                value={formState.instagramAuthor}
+                                onChange={(e) =>
+                                    setFormState({
+                                        ...formState,
+                                        instagramAuthor: e.target.value
+                                    })
+                                }
+                                type="text"
+                                placeholder="Instagram author"
+                            />
+                            <input
+                                value={formState.preparationTime}
+                                onChange={(e) =>
+                                    setFormState({
+                                        ...formState,
+                                        preparationTime: e.target.value
+                                    })
+                                }
+                                type="text"
+                                placeholder="Preparation time"
+                            />
+                            <input
+                                value={formState.onTop}
+                                onChange={(e) =>
+                                    setFormState({
+                                        ...formState,
+                                        onTop: e.target.value
+                                    })
+                                }
+                                type="text"
+                                placeholder="On Top"
+                            />
+                            <Multiselect
+                                placeholder="Ingredients"
+                                emptyRecordMsg="Plus de résultat"
+                                options={ingredients}
+                                displayValue="key"
+                                onSelect={(selectedList) => {
+                                    setIngredientsSelected([...selectedList])
+                                }}
+                                onRemove={(selectedList => {
+                                    setIngredientsSelected([...selectedList])
+                                })}
+                            />
+                            <Multiselect
+                                placeholder="Accessoires"
+                                emptyRecordMsg="Plus de résultat"
+                                options={accessories}
+                                displayValue="key"
+                                onSelect={(selectedList) => {
+                                    setAccessoriesSelected([...selectedList])
+                                }}
+                                onRemove={(selectedList => {
+                                    setAccessoriesSelected([...selectedList])
+                                })}
+                            />
+                            <Multiselect
+                                placeholder="Categories"
+                                emptyRecordMsg="Plus de résultat"
+                                options={categories}
+                                displayValue="key"
+                                onSelect={(selectedList) => {
+                                    setCategoriesSelected([...selectedList])
+                                }}
+                                onRemove={(selectedList => {
+                                    setCategoriesSelected([...selectedList])
+                                })}
+                            />
+                        </div>
+                        <div className="input-file-container">
+                            <label htmlFor="file" className="label-file">Choisir une image</label>
+                            <input
+                                id="file"
+                                className="input-file"
+                                type="file"
+                                onChange= {(e)=> {
+                                    uploadImage(e)
+                                }}
+                            />
+                            {
+                                loading ?
+                                    <Loader type="rectangular-ping" bgColor={"#FF3453"} title={"rectangular-ping"} size={100} />
+                                :
+                                    <img className="upload-poster" src={formState.poster} alt="Photo de la recette"/>
+                            }
+                            <button className="button" type="submit">AJOUTER LA RECETTE</button>
+                        </div>
+                    </form>
+                </div>
+                <div className="modal-footer">
+                    <button onClick={onClose} className="button">Fermer</button>
+                </div>
+            </div>
         </div>
     );
 }
