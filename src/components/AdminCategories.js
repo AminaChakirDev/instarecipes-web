@@ -1,8 +1,6 @@
 import {gql, useQuery} from "@apollo/client";
-import {Link} from "react-router-dom";
-import SearchIcon from "@material-ui/icons/Search";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import CreateCategory from "./CreateCategory";
+import { useHistory } from "react-router-dom";
 
 const CATEGORIES = gql`
 query getCategories {
@@ -19,6 +17,17 @@ function AdminCategories() {
 
     const { loading, error, data } = useQuery(CATEGORIES);
 
+    let history = useHistory();
+
+    const handleClick = (category) => {
+        history.push({
+            pathname: `/admin/categories/${category.slug}`,
+            state: {
+                category: {category}
+            }
+        })
+    }
+
     return (
         <div>
             <div className="admin-page">
@@ -26,43 +35,22 @@ function AdminCategories() {
                 {
                     data && data.getCategories ?
                         <table>
-                            <caption>Liste des Catégories</caption>
-                            <tr>
-                                <th>Voir</th>
-                                <th>title</th>
-                                <th>Icon</th>
-                            </tr>
-                            {
-                                data.getCategories.map(({
-                                                             _id,
-                                                             title,
-                                                             icon,
-                                                             slug
-                                                         }) =>(
-                                    <tr>
-                                        <td>
-                                            <Link
-                                                to={{
-                                                    pathname: `/admin/categories/${slug}`,
-                                                    state: {
-                                                        accessory: {
-                                                            _id,
-                                                            title,
-                                                            icon,
-                                                            slug,
-                                                        }
-                                                    }
-                                                }}
-                                            >
-                                                <SearchIcon fontSize="small"/>
-                                            </Link>
-                                        </td>
-                                        <td>{title}</td>
-                                        <td>{icon}</td>
-                                        <td><HighlightOffIcon fontSize="small"/></td>
-                                    </tr>
-                                ))
-                            }
+                            <thead>
+                                <tr>
+                                    <th>title</th>
+                                    <th>Icon</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    data.getCategories.map((category) =>(
+                                        <tr key={category._id} onClick={() => handleClick(category)}>
+                                            <td>{category.title}</td>
+                                            <td>{category.icon}</td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
                         </table>
                         : ""
                 }

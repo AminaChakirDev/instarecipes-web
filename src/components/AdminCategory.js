@@ -26,7 +26,7 @@ const UPDATE_CATEGORY = gql`
 function AdminCategory() {
 
     const location = useLocation();
-    const {category} = location.state;
+    const {category} = location.state.category;
 
     const [deleteCategory] = useMutation(DELETE_CATEGORY, {
         variables: {
