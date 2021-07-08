@@ -53,6 +53,9 @@ function AdminRecipes() {
         })
     }
 
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+
     return (
         <div className="admin-page">
             <h2>Gestion des recettes</h2>
@@ -84,6 +87,7 @@ function AdminRecipes() {
                     </table>
                 : ""
             }
+            <button onClick={()=>history.push("/admin")}>Retour au menu</button>
             <CreateRecipe/>
         </div>
     );

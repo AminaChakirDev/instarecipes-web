@@ -28,6 +28,9 @@ function AdminIngredients() {
         })
     }
 
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+
     return (
         <div>
             <div className="admin-page">
@@ -54,6 +57,7 @@ function AdminIngredients() {
                         </table>
                         : ""
                 }
+                <button onClick={()=>history.push("/admin")}>Retour au menu</button>
             </div>
             <CreateIngredient/>
 
