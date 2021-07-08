@@ -62,7 +62,7 @@ function AdminAccessories() {
                 }
                 <button onClick={()=>history.push("/admin")}>Retour au menu</button>
             </div>
-            <button onClick={() => setShowCreate(true)}>Ajouter une recette</button>
+            <button onClick={() => setShowCreate(true)}>Ajouter un accessoire</button>
             <CreateAccessory showCreate={showCreate} onClose={() => setShowCreate(false)}/>
         </div>
     );

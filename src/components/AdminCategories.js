@@ -1,6 +1,7 @@
 import {gql, useQuery} from "@apollo/client";
 import CreateCategory from "./CreateCategory";
 import { useHistory } from "react-router-dom";
+import {useState} from "react";
 
 const CATEGORIES = gql`
 query getCategories {
@@ -16,6 +17,8 @@ query getCategories {
 function AdminCategories() {
 
     const { loading, error, data } = useQuery(CATEGORIES);
+
+    const [showCreate, setShowCreate] = useState(false);
 
     let history = useHistory();
 
@@ -59,7 +62,8 @@ function AdminCategories() {
                 }
                 <button onClick={()=>history.push("/admin")}>Retour au menu</button>
             </div>
-            <CreateCategory/>
+            <button onClick={() => setShowCreate(true)}>Ajouter une catégorie</button>
+            <CreateCategory showCreate={showCreate} onClose={() => setShowCreate(false)}/>
         </div>
     );
 }
