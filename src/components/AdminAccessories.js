@@ -1,8 +1,6 @@
 import CreateAccessory from "./CreateAccessory";
 import {gql, useQuery} from "@apollo/client";
-import {Link} from "react-router-dom";
-import SearchIcon from "@material-ui/icons/Search";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import { useHistory } from "react-router-dom";
 
 const ACCESSORIES = gql`
 query getAccessories {
@@ -19,6 +17,17 @@ function AdminAccessories() {
 
     const { loading, error, data } = useQuery(ACCESSORIES);
 
+    let history = useHistory();
+
+    const handleClick = (accessory) => {
+        history.push({
+            pathname: `/admin/accessories/${accessory.slug}`,
+            state: {
+                accessory: {accessory}
+            }
+        })
+    }
+
     return (
         <div>
             <div className="admin-page">
@@ -26,43 +35,22 @@ function AdminAccessories() {
                 {
                     data && data.getAccessories ?
                         <table>
-                            <caption>Liste des Accessoires</caption>
-                            <tr>
-                                <th>Voir</th>
-                                <th>title</th>
-                                <th>Icon</th>
-                            </tr>
-                            {
-                                data.getAccessories.map(({
-                                                             _id,
-                                                             title,
-                                                             icon,
-                                                             slug
-                                                         }) =>(
-                                    <tr>
-                                        <td>
-                                            <Link
-                                                to={{
-                                                    pathname: `/admin/accessories/${slug}`,
-                                                    state: {
-                                                        accessory: {
-                                                            _id,
-                                                            title,
-                                                            icon,
-                                                            slug,
-                                                        }
-                                                    }
-                                                }}
-                                            >
-                                                <SearchIcon fontSize="small"/>
-                                            </Link>
-                                        </td>
-                                        <td>{title}</td>
-                                        <td>{icon}</td>
-                                        <td><HighlightOffIcon fontSize="small"/></td>
-                                    </tr>
-                                ))
-                            }
+                            <thead>
+                                <tr>
+                                    <th>title</th>
+                                    <th>Icon</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    data.getAccessories.map((accessory) =>(
+                                        <tr key={accessory._id} onClick={() => handleClick(accessory)}>
+                                            <td>{accessory.title}</td>
+                                            <td>{accessory.icon}</td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
                         </table>
                         : ""
                 }

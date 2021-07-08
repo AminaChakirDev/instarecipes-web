@@ -1,9 +1,6 @@
 import CreateRecipe from "./CreateRecipe";
 import {gql, useQuery} from "@apollo/client";
 import {Image} from "cloudinary-react";
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import SearchIcon from '@material-ui/icons/Search';
-import {Link} from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
 const RECIPES = gql`

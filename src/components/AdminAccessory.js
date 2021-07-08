@@ -26,7 +26,7 @@ const UPDATE_ACCESSORY = gql`
 function AdminAccessory() {
 
     const location = useLocation();
-    const {accessory} = location.state;
+    const {accessory} = location.state.accessory;
 
     const [deleteAccessory] = useMutation(DELETE_ACCESSORY, {
         variables: {
