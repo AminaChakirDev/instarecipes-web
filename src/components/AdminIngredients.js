@@ -60,7 +60,6 @@ function AdminIngredients() {
                         </table>
                         : ""
                 }
-                <button onClick={()=>history.push("/admin")}>Retour au menu</button>
             </div>
             <button onClick={() => setShowCreate(true)}>Ajouter un ingrédient</button>
             <CreateIngredient showCreate={showCreate} onClose={() => setShowCreate(false)}/>

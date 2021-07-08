@@ -155,6 +155,8 @@ input:focus {
   border-radius: 5px;
 }
 
+/*
+
 .admin-page button {
   width: 208px;
   height: 50px;
@@ -166,6 +168,8 @@ input:focus {
   border-radius: 22px;
   margin-top: 10px;
 }
+
+ */
 
 .button {
   cursor: pointer;
@@ -204,6 +208,20 @@ input:focus {
 }
 
 .button:focus { outline:0; }
+
+.admin-page-add-button {
+  width: 30px;
+  height: 30px;
+  background-color: #FF3453;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 3px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+
 /************************** R E C I P E . J S *****************************/
 
 .recipe-main-container {
@@ -270,7 +288,7 @@ input:focus {
  }
 
 .modal-content {
-  width: 500px;
+  width: 80%;
   background-color: white;
 }
 

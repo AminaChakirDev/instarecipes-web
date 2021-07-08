@@ -60,7 +60,6 @@ function AdminCategories() {
                         </table>
                         : ""
                 }
-                <button onClick={()=>history.push("/admin")}>Retour au menu</button>
             </div>
             <button onClick={() => setShowCreate(true)}>Ajouter une catégorie</button>
             <CreateCategory showCreate={showCreate} onClose={() => setShowCreate(false)}/>

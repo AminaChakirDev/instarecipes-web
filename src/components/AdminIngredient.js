@@ -2,6 +2,7 @@ import {useLocation} from "react-router-dom";
 import React, {useState} from "react";
 import {gql, useMutation} from "@apollo/client";
 import slugify from "slugify";
+import { useHistory } from "react-router-dom";
 
 const DELETE_INGREDIENT = gql`
   mutation DeleteIngredient ($_id: String!) {
@@ -27,6 +28,8 @@ function AdminIngredient() {
 
     const location = useLocation();
     const {ingredient} = location.state.ingredient;
+
+    let history = useHistory();
 
     const [deleteIngredient] = useMutation(DELETE_INGREDIENT, {
         variables: {
@@ -80,6 +83,7 @@ function AdminIngredient() {
 
             <button onClick={() => updateIngredient()}>Appliquer les modifications</button>
             <button onClick={() => deleteIngredient()}>Supprimer l'ingrédient</button>
+            <button onClick={()=>history.push("/admin/ingredients")}>Retour aux ingrédients</button>
         </div>
     )
 }

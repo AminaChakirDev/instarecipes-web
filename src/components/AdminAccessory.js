@@ -2,6 +2,7 @@ import {useLocation} from "react-router-dom";
 import React, {useState} from "react";
 import {gql, useMutation} from "@apollo/client";
 import slugify from "slugify";
+import { useHistory } from "react-router-dom";
 
 const DELETE_ACCESSORY = gql`
   mutation DeleteAccessory ($_id: String!) {
@@ -27,6 +28,8 @@ function AdminAccessory() {
 
     const location = useLocation();
     const {accessory} = location.state.accessory;
+
+    let history = useHistory();
 
     const [deleteAccessory] = useMutation(DELETE_ACCESSORY, {
         variables: {
@@ -80,6 +83,7 @@ function AdminAccessory() {
 
             <button onClick={() => updateAccessory()}>Appliquer les modifications</button>
             <button onClick={() => deleteAccessory()}>Supprimer l'accessoire</button>
+            <button onClick={()=>history.push("/admin/accessories")}>Retour aux accessoires</button>
         </div>
     )
 }

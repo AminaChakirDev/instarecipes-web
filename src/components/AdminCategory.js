@@ -2,6 +2,7 @@ import {useLocation} from "react-router-dom";
 import React, {useState} from "react";
 import {gql, useMutation} from "@apollo/client";
 import slugify from "slugify";
+import { useHistory } from "react-router-dom";
 
 const DELETE_CATEGORY = gql`
   mutation DeleteCategory ($_id: String!) {
@@ -27,6 +28,8 @@ function AdminCategory() {
 
     const location = useLocation();
     const {category} = location.state.category;
+
+    let history = useHistory();
 
     const [deleteCategory] = useMutation(DELETE_CATEGORY, {
         variables: {
@@ -80,6 +83,7 @@ function AdminCategory() {
 
             <button onClick={() => updateCategory()}>Appliquer les modifications</button>
             <button onClick={() => deleteCategory()}>Supprimer l'accessoire</button>
+            <button onClick={()=>history.push("/admin/categories")}>Retour aux catégories</button>
         </div>
     )
 }

@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import {Multiselect} from "multiselect-react-dropdown";
 import {gql, useMutation, useQuery} from "@apollo/client";
 import slugify from "slugify";
+import { useHistory } from "react-router-dom";
 
 const INGREDIENTS = gql`
 query getIngredients {
@@ -62,6 +63,8 @@ function AdminRecipe() {
 
     const location = useLocation();
     const {recipe} = location.state.recipe;
+
+    let history = useHistory();
 
     const dataIngredients = useQuery(INGREDIENTS).data;
     const [ingredientsList, setIngredientsList] = useState([]);
@@ -284,6 +287,7 @@ function AdminRecipe() {
             />
             <button onClick={() => updateRecipe()}>Appliquer les modifications</button>
             <button onClick={() => deleteRecipe()}>Supprimer la recette</button>
+            <button onClick={()=>history.push("/admin/recipes")}>Retour aux recettes</button>
         </div>
     )
 }

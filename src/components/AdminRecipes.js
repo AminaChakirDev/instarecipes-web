@@ -3,6 +3,7 @@ import {gql, useQuery} from "@apollo/client";
 import {Image} from "cloudinary-react";
 import { useHistory } from "react-router-dom";
 import {useState} from "react";
+import AddIcon from '@material-ui/icons/Add';
 
 const RECIPES = gql`
     query getRecipes {
@@ -90,8 +91,7 @@ function AdminRecipes() {
                     </table>
                 : ""
             }
-            <button onClick={()=>history.push("/admin")}>Retour au menu</button>
-            <button onClick={() => setShowCreate(true)}>Ajouter une recette</button>
+            <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
             <CreateRecipe showCreate={showCreate} onClose={() => setShowCreate(false)}/>
         </div>
     );
