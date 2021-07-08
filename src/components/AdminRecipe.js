@@ -61,7 +61,7 @@ const UPDATE_RECIPE = gql`
 function AdminRecipe() {
 
     const location = useLocation();
-    const {recipe} = location.state;
+    const {recipe} = location.state.recipe;
 
     const dataIngredients = useQuery(INGREDIENTS).data;
     const [ingredientsList, setIngredientsList] = useState([]);

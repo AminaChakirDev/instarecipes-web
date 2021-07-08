@@ -4,6 +4,7 @@ import {Image} from "cloudinary-react";
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import SearchIcon from '@material-ui/icons/Search';
 import {Link} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const RECIPES = gql`
     query getRecipes {
@@ -44,87 +45,41 @@ function AdminRecipes() {
 
     const { loading, error, data } = useQuery(RECIPES);
 
+    let history = useHistory();
+
+    const handleClick = (recipe) => {
+        history.push({
+            pathname: `/admin/recipes/${recipe.slug}`,
+            state: {
+                recipe: {recipe}
+            }
+        })
+    }
+
     return (
         <div className="admin-page">
             <h2>Gestion des recettes</h2>
             {
                 data && data.getRecipes ?
                     <table>
-                        <caption>Liste des recettes</caption>
                         <thead>
                             <tr>
-                                <th>Voir</th>
-                                <th>poster</th>
-                                <th>title</th>
-                                <th>slug</th>
-                                <th>Auteur</th>
-                                <th>Post instagram</th>
-                                <th>Temps de préparation</th>
-                                <th>Ingrédients</th>
-                                <th>Accessoires</th>
-                                <th>Catégories</th>
-                                <th>Supprimer</th>
+                                <th>Affiche</th>
+                                <th>Titre</th>
+                                <th>Instagrammeur.euse</th>
+                                <th>Ajoutée le</th>
+                                <th>Modifiée le</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                data.getRecipes.map(({
-                                                         _id,
-                                                         title,
-                                                         onTop,
-                                                         slug,
-                                                         instagramAuthor,
-                                                         instagramUrl,
-                                                         preparationTime,
-                                                         poster,
-                                                         createdAt,
-                                                         updatedAt,
-                                                         ingredients,
-                                                         accessories,
-                                                         categories
-                                                     }) =>(
-                                    <tr key={_id}>
-                                        <td>
-                                            <Link
-                                                to={{
-                                                    pathname: `/admin/recipes/${slug}`,
-                                                    state: {
-                                                        recipe: {
-                                                            _id,
-                                                            title,
-                                                            onTop,
-                                                            instagramAuthor,
-                                                            instagramUrl,
-                                                            preparationTime,
-                                                            createdAt,
-                                                            updatedAt,
-                                                            poster,
-                                                            ingredients,
-                                                            accessories,
-                                                            categories
-                                                        }
-                                                    }
-                                                }}
-                                            >
-                                                <SearchIcon fontSize="small"/>
-                                            </Link>
-                                        </td>
-                                        <td><Image cloudName="dz632zpoz" publicId={poster} width="50" crop="scale" /></td>
-                                        <td>{title}</td>
-                                        <td>{slug}</td>
-                                        <td>{instagramAuthor}</td>
-                                        <td>{instagramUrl}</td>
-                                        <td>{preparationTime}</td>
-                                        <td>
-                                            <ul>{ingredients.map((ingredient)=> <li>{ingredient.title}</li>)}</ul>
-                                        </td>
-                                        <td>
-                                            <ul>{accessories.map((accessory)=> <li>{accessory.title}</li>)}</ul>
-                                        </td>
-                                        <td>
-                                            <ul>{categories.map((category)=> <li>{category.title}</li>)}</ul>
-                                        </td>
-                                        <td><HighlightOffIcon fontSize="small"/></td>
+                                data.getRecipes.map((recipe) =>(
+                                    <tr key={recipe._id} onClick={() => handleClick(recipe)}>
+                                        <td><Image cloudName="dz632zpoz" publicId={recipe.poster} width="50" crop="scale" /></td>
+                                        <td>{recipe.title}</td>
+                                        <td>{recipe.instagramAuthor}</td>
+                                        <td>{recipe.createdAt}</td>
+                                        <td>{recipe.updatedAt}</td>
                                     </tr>
                                 ))
                             }
@@ -132,7 +87,6 @@ function AdminRecipes() {
                     </table>
                 : ""
             }
-
             <CreateRecipe/>
         </div>
     );
