@@ -1,6 +1,7 @@
 import CreateIngredient from "./CreateIngredient";
 import {gql, useQuery} from "@apollo/client";
 import { useHistory } from "react-router-dom";
+import {useState} from "react";
 
 const INGREDIENTS = gql`
 query getIngredients {
@@ -16,6 +17,8 @@ query getIngredients {
 function AdminIngredients() {
 
     const { loading, error, data } = useQuery(INGREDIENTS);
+
+    const [showCreate, setShowCreate] = useState(false);
 
     let history = useHistory();
 
@@ -59,7 +62,8 @@ function AdminIngredients() {
                 }
                 <button onClick={()=>history.push("/admin")}>Retour au menu</button>
             </div>
-            <CreateIngredient/>
+            <button onClick={() => setShowCreate(true)}>Ajouter un ingrédient</button>
+            <CreateIngredient showCreate={showCreate} onClose={() => setShowCreate(false)}/>
 
         </div>
     );
