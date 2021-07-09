@@ -2,6 +2,7 @@ import CreateAccessory from "./CreateAccessory";
 import {gql, useQuery} from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import {useState} from "react";
+import AddIcon from "@material-ui/icons/Add";
 
 const ACCESSORIES = gql`
 query getAccessories {
@@ -40,14 +41,16 @@ function AdminAccessories() {
                 <h2>Page Admin Accessoires</h2>
                 {
                     data && data.getAccessories ?
-                        <table>
-                            <thead>
+                        <>
+                            <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
+                            <table>
+                                <thead>
                                 <tr>
                                     <th>title</th>
                                     <th>Icon</th>
                                 </tr>
-                            </thead>
-                            <tbody>
+                                </thead>
+                                <tbody>
                                 {
                                     data.getAccessories.map((accessory) =>(
                                         <tr key={accessory._id} onClick={() => handleClick(accessory)}>
@@ -56,12 +59,12 @@ function AdminAccessories() {
                                         </tr>
                                     ))
                                 }
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </>
                         : ""
                 }
             </div>
-            <button onClick={() => setShowCreate(true)}>Ajouter un accessoire</button>
             <CreateAccessory showCreate={showCreate} onClose={() => setShowCreate(false)}/>
         </div>
     );

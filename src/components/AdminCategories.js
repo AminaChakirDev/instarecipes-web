@@ -2,6 +2,7 @@ import {gql, useQuery} from "@apollo/client";
 import CreateCategory from "./CreateCategory";
 import { useHistory } from "react-router-dom";
 import {useState} from "react";
+import AddIcon from "@material-ui/icons/Add";
 
 const CATEGORIES = gql`
 query getCategories {
@@ -40,14 +41,16 @@ function AdminCategories() {
                 <h2>Page Admin Catégories</h2>
                 {
                     data && data.getCategories ?
-                        <table>
-                            <thead>
+                        <>
+                            <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
+                            <table>
+                                <thead>
                                 <tr>
                                     <th>title</th>
                                     <th>Icon</th>
                                 </tr>
-                            </thead>
-                            <tbody>
+                                </thead>
+                                <tbody>
                                 {
                                     data.getCategories.map((category) =>(
                                         <tr key={category._id} onClick={() => handleClick(category)}>
@@ -56,12 +59,12 @@ function AdminCategories() {
                                         </tr>
                                     ))
                                 }
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </>
                         : ""
                 }
             </div>
-            <button onClick={() => setShowCreate(true)}>Ajouter une catégorie</button>
             <CreateCategory showCreate={showCreate} onClose={() => setShowCreate(false)}/>
         </div>
     );

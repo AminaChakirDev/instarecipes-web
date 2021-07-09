@@ -2,6 +2,7 @@ import CreateIngredient from "./CreateIngredient";
 import {gql, useQuery} from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import {useState} from "react";
+import AddIcon from "@material-ui/icons/Add";
 
 const INGREDIENTS = gql`
 query getIngredients {
@@ -40,14 +41,16 @@ function AdminIngredients() {
                 <h2>Page Admin Ingredients</h2>
                 {
                     data && data.getIngredients ?
-                        <table>
-                            <thead>
+                        <>
+                            <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
+                            <table>
+                                <thead>
                                 <tr>
                                     <th>title</th>
                                     <th>Icon</th>
                                 </tr>
-                            </thead>
-                            <tbody>
+                                </thead>
+                                <tbody>
                                 {
                                     data.getIngredients.map((ingredient) =>(
                                         <tr key={ingredient._id} onClick={() => handleClick(ingredient)}>
@@ -56,12 +59,12 @@ function AdminIngredients() {
                                         </tr>
                                     ))
                                 }
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </>
                         : ""
                 }
             </div>
-            <button onClick={() => setShowCreate(true)}>Ajouter un ingrédient</button>
             <CreateIngredient showCreate={showCreate} onClose={() => setShowCreate(false)}/>
 
         </div>
