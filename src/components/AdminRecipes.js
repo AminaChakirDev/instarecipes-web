@@ -46,6 +46,8 @@ function AdminRecipes() {
 
     const [showCreate, setShowCreate] = useState(false);
 
+    const [searchedValue, setSearchedValue] = useState([]);
+
     let history = useHistory();
 
     const handleClick = (recipe) => {
@@ -63,6 +65,11 @@ function AdminRecipes() {
     return (
         <div className="admin-page">
             <h2>Gestion des recettes</h2>
+            <input
+                type="text"
+                onChange={(e)=>setSearchedValue(e.target.value)}
+                placeholder="Rechercher"
+            />
             {
                 data && data.getRecipes ?
                     <>
@@ -79,7 +86,9 @@ function AdminRecipes() {
                             </thead>
                             <tbody>
                             {
-                                data.getRecipes.map((recipe) =>(
+                                data.getRecipes
+                                    .filter((recipe)=> searchedValue && searchedValue.length > 0 ? recipe.title.toLowerCase().includes(searchedValue.toLowerCase()) : recipe.title.includes(searchedValue))
+                                    .map((recipe) =>(
                                     <tr key={recipe._id} onClick={() => handleClick(recipe)}>
                                         <td><Image cloudName="dz632zpoz" publicId={recipe.poster} width="50" crop="scale" /></td>
                                         <td>{recipe.title}</td>
