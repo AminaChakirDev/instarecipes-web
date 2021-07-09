@@ -41,12 +41,14 @@ function AdminIngredients() {
         <div>
             <div className="admin-page">
                 <h2>Page Admin Ingredients</h2>
-                <input
-                    type="text"
-                    onChange={(e)=>setSearchedValue(e.target.value)}
-                    placeholder="Rechercher un ingrédient"
-                />
-                <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
+                <div className="admin-page-menu">
+                    <input
+                        type="text"
+                        onChange={(e)=>setSearchedValue(e.target.value)}
+                        placeholder="Rechercher un ingrédient"
+                    />
+                    <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
+                </div>
                 {
                     data && data.getIngredients ?
                         <table>

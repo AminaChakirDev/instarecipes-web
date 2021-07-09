@@ -215,6 +215,12 @@ input:focus {
 
  */
 
+.admin-page-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .admin-page-add-button {
   width: 30px;
   height: 30px;
@@ -223,9 +229,7 @@ input:focus {
   border: none;
   border-radius: 50%;
   padding: 3px;
-  margin: 10px;
   cursor: pointer;
-  align-self: flex-end;
 }
 
 .admin-page-close-button {

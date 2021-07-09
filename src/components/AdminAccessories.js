@@ -41,12 +41,14 @@ function AdminAccessories() {
         <div>
             <div className="admin-page">
                 <h2>Page Admin Accessoires</h2>
-                <input
-                    type="text"
-                    onChange={(e)=>setSearchedValue(e.target.value)}
-                    placeholder="Rechercher un accessoire"
-                />
-                <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
+                <div className="admin-page-menu">
+                    <input
+                        type="text"
+                        onChange={(e)=>setSearchedValue(e.target.value)}
+                        placeholder="Rechercher un accessoire"
+                    />
+                    <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
+                </div>
                 {
                     data && data.getAccessories ?
                         <table>

@@ -65,12 +65,14 @@ function AdminRecipes() {
     return (
         <div className="admin-page">
             <h2>Gestion des recettes</h2>
-            <input
-                type="text"
-                onChange={(e)=>setSearchedValue(e.target.value)}
-                placeholder="Rechercher une recette"
-            />
-            <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
+            <div className="admin-page-menu">
+                <input
+                    type="text"
+                    onChange={(e)=>setSearchedValue(e.target.value)}
+                    placeholder="Rechercher une recette"
+                />
+                <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
+            </div>
             {
                 data && data.getRecipes ?
                     <table>
