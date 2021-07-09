@@ -21,6 +21,8 @@ function AdminAccessories() {
 
     const [showCreate, setShowCreate] = useState(false);
 
+    const [searchedValue, setSearchedValue] = useState([]);
+
     let history = useHistory();
 
     const handleClick = (accessory) => {
@@ -39,6 +41,11 @@ function AdminAccessories() {
         <div>
             <div className="admin-page">
                 <h2>Page Admin Accessoires</h2>
+                <input
+                    type="text"
+                    onChange={(e)=>setSearchedValue(e.target.value)}
+                    placeholder="Rechercher un accessoire"
+                />
                 {
                     data && data.getAccessories ?
                         <>
@@ -52,7 +59,9 @@ function AdminAccessories() {
                                 </thead>
                                 <tbody>
                                 {
-                                    data.getAccessories.map((accessory) =>(
+                                    data.getAccessories
+                                        .filter((recipe)=> searchedValue && searchedValue.length > 0 ? recipe.title.toLowerCase().includes(searchedValue.toLowerCase()) : recipe.title.includes(searchedValue))
+                                        .map((accessory) =>(
                                         <tr key={accessory._id} onClick={() => handleClick(accessory)}>
                                             <td>{accessory.title}</td>
                                             <td>{accessory.icon}</td>

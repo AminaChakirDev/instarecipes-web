@@ -21,6 +21,8 @@ function AdminIngredients() {
 
     const [showCreate, setShowCreate] = useState(false);
 
+    const [searchedValue, setSearchedValue] = useState([]);
+
     let history = useHistory();
 
     const handleClick = (ingredient) => {
@@ -39,6 +41,11 @@ function AdminIngredients() {
         <div>
             <div className="admin-page">
                 <h2>Page Admin Ingredients</h2>
+                <input
+                    type="text"
+                    onChange={(e)=>setSearchedValue(e.target.value)}
+                    placeholder="Rechercher un ingrédient"
+                />
                 {
                     data && data.getIngredients ?
                         <>
@@ -52,7 +59,9 @@ function AdminIngredients() {
                                 </thead>
                                 <tbody>
                                 {
-                                    data.getIngredients.map((ingredient) =>(
+                                    data.getIngredients
+                                        .filter((recipe)=> searchedValue && searchedValue.length > 0 ? recipe.title.toLowerCase().includes(searchedValue.toLowerCase()) : recipe.title.includes(searchedValue))
+                                        .map((ingredient) =>(
                                         <tr key={ingredient._id} onClick={() => handleClick(ingredient)}>
                                             <td>{ingredient.title}</td>
                                             <td>{ingredient.icon}</td>

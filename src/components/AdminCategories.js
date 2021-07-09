@@ -21,6 +21,8 @@ function AdminCategories() {
 
     const [showCreate, setShowCreate] = useState(false);
 
+    const [searchedValue, setSearchedValue] = useState([]);
+
     let history = useHistory();
 
     const handleClick = (category) => {
@@ -39,6 +41,11 @@ function AdminCategories() {
         <div>
             <div className="admin-page">
                 <h2>Page Admin Catégories</h2>
+                <input
+                    type="text"
+                    onChange={(e)=>setSearchedValue(e.target.value)}
+                    placeholder="Rechercher une catégorie"
+                />
                 {
                     data && data.getCategories ?
                         <>
@@ -52,7 +59,9 @@ function AdminCategories() {
                                 </thead>
                                 <tbody>
                                 {
-                                    data.getCategories.map((category) =>(
+                                    data.getCategories
+                                        .filter((recipe)=> searchedValue && searchedValue.length > 0 ? recipe.title.toLowerCase().includes(searchedValue.toLowerCase()) : recipe.title.includes(searchedValue))
+                                        .map((category) =>(
                                         <tr key={category._id} onClick={() => handleClick(category)}>
                                             <td>{category.title}</td>
                                             <td>{category.icon}</td>

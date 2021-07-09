@@ -68,7 +68,7 @@ function AdminRecipes() {
             <input
                 type="text"
                 onChange={(e)=>setSearchedValue(e.target.value)}
-                placeholder="Rechercher"
+                placeholder="Rechercher une recette"
             />
             {
                 data && data.getRecipes ?
