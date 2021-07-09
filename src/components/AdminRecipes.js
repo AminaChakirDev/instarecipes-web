@@ -70,37 +70,35 @@ function AdminRecipes() {
                 onChange={(e)=>setSearchedValue(e.target.value)}
                 placeholder="Rechercher une recette"
             />
+            <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
             {
                 data && data.getRecipes ?
-                    <>
-                        <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Affiche</th>
-                                <th>Titre</th>
-                                <th>Instagrammeur.euse</th>
-                                <th>Ajoutée le</th>
-                                <th>Modifiée le</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {
-                                data.getRecipes
-                                    .filter((recipe)=> searchedValue && searchedValue.length > 0 ? recipe.title.toLowerCase().includes(searchedValue.toLowerCase()) : recipe.title.includes(searchedValue))
-                                    .map((recipe) =>(
-                                    <tr key={recipe._id} onClick={() => handleClick(recipe)}>
-                                        <td><Image cloudName="dz632zpoz" publicId={recipe.poster} width="50" crop="scale" /></td>
-                                        <td>{recipe.title}</td>
-                                        <td>{recipe.instagramAuthor}</td>
-                                        <td>{recipe.createdAt}</td>
-                                        <td>{recipe.updatedAt}</td>
-                                    </tr>
-                                ))
-                            }
-                            </tbody>
-                        </table>
-                    </>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Affiche</th>
+                            <th>Titre</th>
+                            <th>Instagrammeur.euse</th>
+                            <th>Ajoutée le</th>
+                            <th>Modifiée le</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            data.getRecipes
+                                .filter((recipe)=> searchedValue && searchedValue.length > 0 ? recipe.title.toLowerCase().includes(searchedValue.toLowerCase()) : recipe.title.includes(searchedValue))
+                                .map((recipe) =>(
+                                <tr key={recipe._id} onClick={() => handleClick(recipe)}>
+                                    <td><Image cloudName="dz632zpoz" publicId={recipe.poster} width="50" crop="scale" /></td>
+                                    <td>{recipe.title}</td>
+                                    <td>{recipe.instagramAuthor}</td>
+                                    <td>{recipe.createdAt}</td>
+                                    <td>{recipe.updatedAt}</td>
+                                </tr>
+                            ))
+                        }
+                        </tbody>
+                    </table>
                 : ""
             }
             <CreateRecipe showCreate={showCreate} onClose={() => setShowCreate(false)}/>

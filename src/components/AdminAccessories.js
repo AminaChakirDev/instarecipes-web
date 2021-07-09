@@ -46,31 +46,29 @@ function AdminAccessories() {
                     onChange={(e)=>setSearchedValue(e.target.value)}
                     placeholder="Rechercher un accessoire"
                 />
+                <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
                 {
                     data && data.getAccessories ?
-                        <>
-                            <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>title</th>
-                                    <th>Icon</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {
-                                    data.getAccessories
-                                        .filter((recipe)=> searchedValue && searchedValue.length > 0 ? recipe.title.toLowerCase().includes(searchedValue.toLowerCase()) : recipe.title.includes(searchedValue))
-                                        .map((accessory) =>(
-                                        <tr key={accessory._id} onClick={() => handleClick(accessory)}>
-                                            <td>{accessory.title}</td>
-                                            <td>{accessory.icon}</td>
-                                        </tr>
-                                    ))
-                                }
-                                </tbody>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>title</th>
+                                <th>Icon</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                data.getAccessories
+                                    .filter((recipe)=> searchedValue && searchedValue.length > 0 ? recipe.title.toLowerCase().includes(searchedValue.toLowerCase()) : recipe.title.includes(searchedValue))
+                                    .map((accessory) =>(
+                                    <tr key={accessory._id} onClick={() => handleClick(accessory)}>
+                                        <td>{accessory.title}</td>
+                                        <td>{accessory.icon}</td>
+                                    </tr>
+                                ))
+                            }
+                            </tbody>
                             </table>
-                        </>
                         : ""
                 }
             </div>

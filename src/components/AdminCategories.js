@@ -46,31 +46,29 @@ function AdminCategories() {
                     onChange={(e)=>setSearchedValue(e.target.value)}
                     placeholder="Rechercher une catégorie"
                 />
+                <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
                 {
                     data && data.getCategories ?
-                        <>
-                            <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>title</th>
-                                    <th>Icon</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {
-                                    data.getCategories
-                                        .filter((recipe)=> searchedValue && searchedValue.length > 0 ? recipe.title.toLowerCase().includes(searchedValue.toLowerCase()) : recipe.title.includes(searchedValue))
-                                        .map((category) =>(
-                                        <tr key={category._id} onClick={() => handleClick(category)}>
-                                            <td>{category.title}</td>
-                                            <td>{category.icon}</td>
-                                        </tr>
-                                    ))
-                                }
-                                </tbody>
-                            </table>
-                        </>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>title</th>
+                                <th>Icon</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                data.getCategories
+                                    .filter((recipe)=> searchedValue && searchedValue.length > 0 ? recipe.title.toLowerCase().includes(searchedValue.toLowerCase()) : recipe.title.includes(searchedValue))
+                                    .map((category) =>(
+                                    <tr key={category._id} onClick={() => handleClick(category)}>
+                                        <td>{category.title}</td>
+                                        <td>{category.icon}</td>
+                                    </tr>
+                                ))
+                            }
+                            </tbody>
+                        </table>
                         : ""
                 }
             </div>
