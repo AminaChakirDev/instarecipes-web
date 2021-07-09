@@ -89,6 +89,11 @@ tbody tr:hover {
 
 /************************** P A G E S   A D M I N  *****************************/
 
+.admin-page {
+  display: flex;
+  flex-direction: column;
+}
+
 .admin-page h2 {
   text-align: center;
   font-family: SignPainter;
@@ -102,7 +107,6 @@ tbody tr:hover {
 
 .admin-page form {
   text-align: center;
-  display: flex;
 }
 
 .form-input-container input {
@@ -171,7 +175,7 @@ input:focus {
 
  */
 
-.button {
+/*.button {
   cursor: pointer;
   position: relative;
   background-color: #2C001B;
@@ -209,10 +213,25 @@ input:focus {
 
 .button:focus { outline:0; }
 
+ */
+
 .admin-page-add-button {
   width: 30px;
   height: 30px;
   background-color: #FF3453;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 3px;
+  margin: 10px;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.admin-page-close-button {
+  width: 30px;
+  height: 30px;
+  background-color: #2C001B;
   color: white;
   border: none;
   border-radius: 50%;
@@ -292,12 +311,9 @@ input:focus {
   background-color: white;
 }
 
-.modal-header, .modal-footer {
+.modal-header {
   padding: 10px;
-}
-
-.modal-title {
-  margin: 0;
+  display: flex;
 }
 
 .modal-body {

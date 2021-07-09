@@ -65,8 +65,10 @@ function AdminRecipes() {
             <h2>Gestion des recettes</h2>
             {
                 data && data.getRecipes ?
-                    <table>
-                        <thead>
+                    <>
+                        <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
+                        <table>
+                            <thead>
                             <tr>
                                 <th>Affiche</th>
                                 <th>Titre</th>
@@ -74,8 +76,8 @@ function AdminRecipes() {
                                 <th>Ajoutée le</th>
                                 <th>Modifiée le</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             {
                                 data.getRecipes.map((recipe) =>(
                                     <tr key={recipe._id} onClick={() => handleClick(recipe)}>
@@ -87,11 +89,11 @@ function AdminRecipes() {
                                     </tr>
                                 ))
                             }
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </>
                 : ""
             }
-            <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
             <CreateRecipe showCreate={showCreate} onClose={() => setShowCreate(false)}/>
         </div>
     );

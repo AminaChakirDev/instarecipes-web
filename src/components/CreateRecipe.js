@@ -4,6 +4,7 @@ import noImage from './../no-image-icon.png';
 import Loader from "react-js-loader";
 import slugify from "slugify";
 import { Multiselect } from 'multiselect-react-dropdown';
+import CloseIcon from '@material-ui/icons/Close';
 
 const CREATE_RECIPE = gql`
   mutation CreateRecipe(
@@ -176,6 +177,7 @@ function CreateRecipe({showCreate, onClose}) {
         <div className="modal">
             <div className="modal-content">
                 <div className="modal-header">
+                    <button onClick={onClose} className="admin-page-close-button"><CloseIcon/></button>
                     <h3>Créer une recette</h3>
                 </div>
                 <div className="modal-body">
@@ -294,12 +296,9 @@ function CreateRecipe({showCreate, onClose}) {
                                 :
                                     <img className="upload-poster" src={formState.poster} alt="Photo de la recette"/>
                             }
-                            <button className="button" type="submit">AJOUTER LA RECETTE</button>
                         </div>
+                        <button className="button" type="submit">AJOUTER LA RECETTE</button>
                     </form>
-                </div>
-                <div className="modal-footer">
-                    <button onClick={onClose} className="button">Fermer</button>
                 </div>
             </div>
         </div>
