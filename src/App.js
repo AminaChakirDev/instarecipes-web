@@ -22,6 +22,11 @@ import AdminIngredients from "./components/AdminIngredients";
 import AdminCategories from "./components/AdminCategories";
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import RecipeDetails from "./components/RecipeDetails";
+import AdminAccessories from "./components/AdminAccessories";
+import AdminRecipe from "./components/AdminRecipe";
+import AdminIngredient from "./components/AdminIngredient";
+import AdminAccessory from "./components/AdminAccessory";
+import AdminCategory from "./components/AdminCategory";
 
 function App() {
   return (
@@ -57,28 +62,32 @@ function App() {
                     <Route path="/favorites">
                         <Favorites />
                     </Route>
+                    <Route path="/recipes/:slug" component={RecipeDetails}/>
                     <Route path="/ingredients">
                         <IngredientsList />
                     </Route>
-                    <Route path="/recipes/:slug" component={RecipeDetails}/>
+                    <Route path="/admin/ingredients/:slug" component={AdminIngredient}/>
                     <Route path="/admin/ingredients">
                         <AdminIngredients />
                     </Route>
                     <Route path="/accessories">
                         <AccessoriesList />
                     </Route>
+                    <Route path="/admin/accessories/:slug" component={AdminAccessory}/>
                     <Route path="/admin/accessories">
-                        <AccessoriesList />
+                        <AdminAccessories />
                     </Route>
                     <Route path="/categories">
                         <CategoriesList />
                     </Route>
+                    <Route path="/admin/categories/:slug" component={AdminCategory}/>
                     <Route path="/admin/categories">
                         <AdminCategories />
                     </Route>
                     <Route path="/recipes">
                         <RecipesList />
                     </Route>
+                    <Route path="/admin/recipes/:slug" component={AdminRecipe}/>
                     <Route path="/admin/recipes">
                         <AdminRecipes />
                     </Route>

@@ -1,21 +1,83 @@
+import {gql, useQuery} from "@apollo/client";
 import CreateCategory from "./CreateCategory";
-import UploadPoster from "./UploadPoster";
-import DeleteCategory from "./DeleteCategory";
-import {Link} from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import {useState} from "react";
+import AddIcon from "@material-ui/icons/Add";
+
+const CATEGORIES = gql`
+query getCategories {
+  getCategories {
+    _id
+    title
+    icon
+    slug
+  }
+}
+`;
 
 function AdminCategories() {
+
+    const { loading, error, data } = useQuery(CATEGORIES);
+
+    const [showCreate, setShowCreate] = useState(false);
+
+    const [searchedValue, setSearchedValue] = useState([]);
+
+    let history = useHistory();
+
+    const handleClick = (category) => {
+        history.push({
+            pathname: `/admin/categories/${category.slug}`,
+            state: {
+                category: {category}
+            }
+        })
+    }
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+
     return (
         <div>
-            <h2>Page Admin Categories</h2>
-
-            <Link to="/admin">Retour vers la page admin</Link>
-
-            <CreateCategory/>
-            <DeleteCategory/>
-
-            <UploadPoster />
+            <div className="admin-page">
+                <h2>Page Admin Catégories</h2>
+                <div className="admin-page-menu">
+                    <input
+                        type="text"
+                        onChange={(e)=>setSearchedValue(e.target.value)}
+                        placeholder="Rechercher une catégorie"
+                    />
+                    <button className="admin-page-add-button" onClick={() => setShowCreate(true)}><AddIcon/></button>
+                </div>
+                {
+                    data && data.getCategories ?
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>title</th>
+                                <th>Icon</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                data.getCategories
+                                    .filter((recipe)=> searchedValue && searchedValue.length > 0 ? recipe.title.toLowerCase().includes(searchedValue.toLowerCase()) : recipe.title.includes(searchedValue))
+                                    .map((category) =>(
+                                    <tr key={category._id} onClick={() => handleClick(category)}>
+                                        <td>{category.title}</td>
+                                        <td>{category.icon}</td>
+                                    </tr>
+                                ))
+                            }
+                            </tbody>
+                        </table>
+                        : ""
+                }
+            </div>
+            <CreateCategory showCreate={showCreate} onClose={() => setShowCreate(false)}/>
         </div>
     );
 }
 
 export default AdminCategories;
+

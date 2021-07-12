@@ -8,6 +8,7 @@ query getIngredients {
     _id
     title
     icon
+    slug
   }
 }
 `;
@@ -21,10 +22,9 @@ function IngredientsList() {
 
     return (
         <div>
-            <Link to="/admin">Retour vers la page admin</Link>
             {
-                data && data.getIngredients.map(({ title, icon }) =>(
-                    <Ingredient title={title} icon={icon}/>
+                data && data.getIngredients.map(({ title, icon, slug }) =>(
+                    <Ingredient title={title} icon={icon} slug={slug}/>
                 ))
             }
         </div>

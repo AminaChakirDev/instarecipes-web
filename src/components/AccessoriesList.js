@@ -1,7 +1,5 @@
 import { useQuery, gql } from '@apollo/client';
 import Accessory from "./Accessory";
-import {Link} from "react-router-dom";
-import Category from "./Category";
 
 const ACCESSORIES = gql`
 query getAccessories {
@@ -9,6 +7,7 @@ query getAccessories {
     _id
     title
     icon
+    slug
   }
 }
 `;
@@ -22,10 +21,9 @@ function AccessoriesList() {
 
     return (
         <div>
-            <Link to="/admin">Retour vers la page admin</Link>
             {
-                data.getAccessories.map(({ title, icon }) =>(
-                    <Accessory title={title} icon={icon}/>
+                data.getAccessories.map(({ title, icon, slug }) =>(
+                    <Accessory title={title} icon={icon} slug={slug}/>
                 ))
             }
         </div>

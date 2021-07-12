@@ -4,6 +4,7 @@ import noImage from './../no-image-icon.png';
 import Loader from "react-js-loader";
 import slugify from "slugify";
 import { Multiselect } from 'multiselect-react-dropdown';
+import CloseIcon from '@material-ui/icons/Close';
 
 const CREATE_RECIPE = gql`
   mutation CreateRecipe(
@@ -26,7 +27,27 @@ query getIngredients {
 }
 `;
 
-function CreateRecipe() {
+const ACCESSORIES = gql`
+query getAccessories {
+  getAccessories {
+    _id
+    title
+    icon
+  }
+}
+`;
+
+const CATEGORIES = gql`
+query getCategories {
+  getCategories {
+    _id
+    title
+    icon
+  }
+}
+`;
+
+function CreateRecipe({showCreate, onClose}) {
 
     const [formState, setFormState] = useState({
         title: 'Brownie',
@@ -36,29 +57,19 @@ function CreateRecipe() {
         updatedAt: '',
         onTop: false,
         poster: noImage,
-        ingredients : [
-            {
-                _id: '60e41308d52bf500192cb95c',
-                title: 'chocolat',
-                icon:'url chocolat'
-            },
-            {
-                _id: '60e412e6d52bf500192cb959',
-                title: 'beurre',
-                icon:'url beurre'
-            },
-        ],
-        accessories: {
-            _id: '60e412e6d52bf500192cb959',
-            title: 'cuillère',
-            icon:'url cuillère'
-        },
-        categories: {
-            _id: '60e4126cd52bf500192cb958',
-            title: 'pâtisserie',
-            icon:'url pâtisserie'
-        },
     });
+
+    const dataIngredients = useQuery(INGREDIENTS).data;
+    const [ingredients, setIngredients] = useState([]);
+    const [ingredientsSelected, setIngredientsSelected] = useState([]);
+
+    const dataAccessories = useQuery(ACCESSORIES).data;
+    const [accessories, setAccessories] = useState([]);
+    const [accessoriesSelected, setAccessoriesSelected] = useState([]);
+
+    const dataCategories = useQuery(CATEGORIES).data;
+    const [categories, setCategories] = useState([]);
+    const [categoriesSelected, setCategoriesSelected] = useState([]);
 
     const [createRecipe] = useMutation(CREATE_RECIPE, {
         variables: {
@@ -77,32 +88,63 @@ function CreateRecipe() {
                         })
                         .format(Date.now()),
                     slug: slugify(formState.title),
+                    ingredients: ingredientsSelected.map((ingredientSelected) => {
+                        return {...ingredientSelected, key: undefined}
+                    } ),
+                    accessories: accessoriesSelected.map((accessorySelected) => {
+                        return {...accessorySelected, key: undefined}
+                    } ),
+                    categories: categoriesSelected.map((categorySelected) => {
+                        return {...categorySelected, key: undefined}
+                    } ),
                 }
         }
     });
 
-    const { error, data } = useQuery(INGREDIENTS);
-
-    const [ingredients, setIngredients] = useState([]);
-
     useEffect(() => {
-        const tata = [];
-        if (data && data.getIngredients) {
-            data.getIngredients.map((a) => {
-                tata.push({
+        const ingredientsArray = [];
+        if (dataIngredients && dataIngredients.getIngredients) {
+            dataIngredients.getIngredients.map((a) => {
+                return ingredientsArray.push({
                     key: a.title,
-                    cat: a._id,
+                    _id: a._id,
+                    title: a.title,
+                    icon: a.icon,
                 })
             });
-            setIngredients(tata)
+            setIngredients(ingredientsArray)
         }
-    }, [data]);
-
-    const [ingredientsSelected, setIngredientsSelected] = useState([]);
+    }, [dataIngredients]);
 
     useEffect(() => {
-        console.log(ingredientsSelected)
-    }, [ingredientsSelected]);
+        const accessoriesArray = [];
+        if (dataAccessories && dataAccessories.getAccessories) {
+            return dataAccessories.getAccessories.map((a) => {
+                accessoriesArray.push({
+                    key: a.title,
+                    _id: a._id,
+                    title: a.title,
+                    icon: a.icon,
+                })
+            });
+            setAccessories(accessoriesArray)
+        }
+    }, [dataAccessories]);
+
+    useEffect(() => {
+        const categoriesArray = [];
+        if (dataCategories && dataCategories.getCategories) {
+            dataCategories.getCategories.map((a) => {
+                categoriesArray.push({
+                    key: a.title,
+                    _id: a._id,
+                    title: a.title,
+                    icon: a.icon,
+                })
+            });
+            setCategories(categoriesArray)
+        }
+    }, [dataCategories]);
 
     const [loading, setLoading ] = useState(false);
 
@@ -127,18 +169,25 @@ function CreateRecipe() {
             .catch(err => console.log(err))
     }
 
-    return (
-        <div className="Admin">
-            <h3>Créer une recette</h3>
+    if (!showCreate) {
+        return null
+    }
 
-            <div>
-                <form
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        createRecipe();
-                    }}
-                >
-                    <div className="form-input-container">
+    return (
+        <div className="modal">
+            <div className="modal-content">
+                <div className="modal-header">
+                    <button onClick={onClose} className="admin-page-close-button"><CloseIcon/></button>
+                    <h3>Créer une recette</h3>
+                </div>
+                <div className="modal-body">
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            createRecipe();
+                        }}
+                    >
+                        <div className="form-input-container">
                             <input
                                 value={formState.title}
                                 onChange={(e) =>
@@ -195,32 +244,63 @@ function CreateRecipe() {
                                 placeholder="On Top"
                             />
                             <Multiselect
+                                placeholder="Ingredients"
+                                emptyRecordMsg="Plus de résultat"
                                 options={ingredients}
                                 displayValue="key"
-                                onSelect={(selectedList) => setIngredientsSelected([...ingredientsSelected, selectedList])}
+                                onSelect={(selectedList) => {
+                                    setIngredientsSelected([...selectedList])
+                                }}
+                                onRemove={(selectedList => {
+                                    setIngredientsSelected([...selectedList])
+                                })}
                             />
-                    </div>
-                    <div className="input-file-container">
-                        <label htmlFor="file" className="label-file">Choisir une image</label>
-                        <input
-                            id="file"
-                            className="input-file"
-                            type="file"
-                            onChange= {(e)=> {
-                                uploadImage(e)
-                            }}
-                        />
-                        {
-                            loading ?
-                                <Loader type="rectangular-ping" bgColor={"#FF3453"} title={"rectangular-ping"} size={100} />
-                            :
-                                <img className="upload-poster" src={formState.poster}/>
-                        }
+                            <Multiselect
+                                placeholder="Accessoires"
+                                emptyRecordMsg="Plus de résultat"
+                                options={accessories}
+                                displayValue="key"
+                                onSelect={(selectedList) => {
+                                    setAccessoriesSelected([...selectedList])
+                                }}
+                                onRemove={(selectedList => {
+                                    setAccessoriesSelected([...selectedList])
+                                })}
+                            />
+                            <Multiselect
+                                placeholder="Categories"
+                                emptyRecordMsg="Plus de résultat"
+                                options={categories}
+                                displayValue="key"
+                                onSelect={(selectedList) => {
+                                    setCategoriesSelected([...selectedList])
+                                }}
+                                onRemove={(selectedList => {
+                                    setCategoriesSelected([...selectedList])
+                                })}
+                            />
+                        </div>
+                        <div className="input-file-container">
+                            <label htmlFor="file" className="label-file">Choisir une image</label>
+                            <input
+                                id="file"
+                                className="input-file"
+                                type="file"
+                                onChange= {(e)=> {
+                                    uploadImage(e)
+                                }}
+                            />
+                            {
+                                loading ?
+                                    <Loader type="rectangular-ping" bgColor={"#FF3453"} title={"rectangular-ping"} size={100} />
+                                :
+                                    <img className="upload-poster" src={formState.poster} alt="Photo de la recette"/>
+                            }
+                        </div>
                         <button className="button" type="submit">AJOUTER LA RECETTE</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-
         </div>
     );
 }

@@ -5,6 +5,10 @@
 
 /************************** A P P L I C A B L E   A   T O U T   L E   D O C U M E N T  *****************************/
 
+input {
+  width: 600px;
+}
+
 a {
   text-decoration: none;
   color: #2C001B;
@@ -12,6 +16,22 @@ a {
 
 li {
   list-style-type: none;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:hover {
+  cursor: pointer;
+  background-color:#f5f5f5;
 }
 
 .App {
@@ -69,6 +89,11 @@ li {
 
 /************************** P A G E S   A D M I N  *****************************/
 
+.admin-page {
+  display: flex;
+  flex-direction: column;
+}
+
 .admin-page h2 {
   text-align: center;
   font-family: SignPainter;
@@ -82,7 +107,6 @@ li {
 
 .admin-page form {
   text-align: center;
-  display: flex;
 }
 
 .form-input-container input {
@@ -97,7 +121,7 @@ li {
 }
 
 .admin-page input {
-  width: 300px;
+  width: 600px;
   height: 30px;
 }
 
@@ -135,6 +159,8 @@ input:focus {
   border-radius: 5px;
 }
 
+/*
+
 .admin-page button {
   width: 208px;
   height: 50px;
@@ -147,7 +173,9 @@ input:focus {
   margin-top: 10px;
 }
 
-.button {
+ */
+
+/*.button {
   cursor: pointer;
   position: relative;
   background-color: #2C001B;
@@ -184,6 +212,39 @@ input:focus {
 }
 
 .button:focus { outline:0; }
+
+ */
+
+.admin-page-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-page-add-button {
+  width: 30px;
+  height: 30px;
+  background-color: #FF3453;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.admin-page-close-button {
+  width: 30px;
+  height: 30px;
+  background-color: #2C001B;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 3px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+
 /************************** R E C I P E . J S *****************************/
 
 .recipe-main-container {
@@ -235,3 +296,32 @@ input:focus {
   font-weight: bold;
 }
 
+/************************** M O D A L *****************************/
+
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ }
+
+.modal-content {
+  width: 80%;
+  background-color: white;
+}
+
+.modal-header {
+  padding: 10px;
+  display: flex;
+}
+
+.modal-body {
+  padding: 10px;
+  border-top: 1px solid #EEE;
+  border-bottom: 1px solid #EEE;
+}
